@@ -11,6 +11,11 @@ const schema = {
     trim: true,
     description: 'Name of institution'
   },
+  account_number: {
+    type: String,
+    required: true,
+    description: 'Account Number of institution'
+  },
   bisCode: {
     type: String,
     description: 'BIS code of institution'
@@ -34,9 +39,15 @@ const schema = {
     enum: Object.values(InstitutionConstants.status),
     description: 'Status of institution'
   },
+  project: {
+    type: ObjectId,
+    ref: 'Project',
+    required: true,
+    description: 'Project Id associated with institution'
+  },
   logoUrl: {
     type: String,
-    Description: 'Logo url of institution'
+    description: 'Logo url of institution'
   },
   agency: {
     type: ObjectId,
