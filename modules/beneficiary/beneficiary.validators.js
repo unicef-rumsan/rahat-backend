@@ -58,7 +58,7 @@ module.exports = {
       start: Joi.number().optional(),
       limit: Joi.number().optional(),
       name: Joi.string().optional(),
-      phone: Joi.string().optional(),
+      phone: Joi.string().optional().allow(''),
       withBank: Joi.bool().optional(),
       status: Joi.string().optional(),
       projectId: Joi.string().optional(),
