@@ -1,4 +1,5 @@
 const {Types} = require('mongoose');
+const {ObjectId} = require('mongoose').Types;
 const Logger = require('../../helpers/logger');
 const {DataUtils} = require('../../helpers/utils');
 const {InstitutionModel} = require('../models');
@@ -8,6 +9,7 @@ const logger = Logger.getInstance();
 const Institution = {
   async add(payload) {
     payload.agency = payload.currentUser.agency;
+    console.log({payload});
     const project = await InstitutionModel.create(payload);
     // TODO implement blockchain function using project._id
     return project;
@@ -36,6 +38,7 @@ const Institution = {
     $match.agency = currentUser.agency;
     if (query.name) $match.name = {$regex: new RegExp(`${query.name}`), $options: 'i'};
     if (query.phone) $match.phone = {$regex: new RegExp(`${query.phone}`), $options: 'i'};
+    if (query.project) $match.project = ObjectId(query.projectId);
     return DataUtils.paging({
       start,
       limit,

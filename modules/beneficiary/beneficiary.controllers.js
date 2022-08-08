@@ -1,6 +1,4 @@
-const ObjectId = require('mongodb').ObjectID;
 const mongoose = require('mongoose');
-const app = require('../../app');
 const {DataUtils} = require('../../helpers/utils');
 const {
   BeneficiaryModel,
@@ -11,8 +9,10 @@ const {
 } = require('../models');
 const {addFileToIpfs} = require('../../helpers/utils/ipfs');
 const {updateTotalSupply} = require('../nft/nft.controller');
+const {addBankAccount} = require('./beneficiary.validators');
 
 const isObjectId = mongoose.Types.ObjectId;
+const {ObjectId} = mongoose.Types;
 const DEF_PACKAGE_ISSUE_QTY = 1;
 
 const Beneficiary = {
@@ -108,17 +108,20 @@ const Beneficiary = {
   async getbyId(id) {
     let ben;
     if (isObjectId.isValid(id)) {
-      ben = await BeneficiaryModel.findOne({_id: id, is_archived: false}).populate('projects');
+      ben = await BeneficiaryModel.findOne({_id: id, is_archived: false})
+        .populate('projects')
+        .populate('bank_account.institution');
       if (!ben) {
         return false;
       }
       return ben;
     }
-    ben = await BeneficiaryModel.findOne({phone: id, is_archived: false});
+    ben = await BeneficiaryModel.findOne({phone: id, is_archived: false})
+      .populate('projects')
+      .populate('bank_account.institution');
     if (!ben) {
       return false;
     }
-
     return ben;
   },
 
@@ -133,8 +136,10 @@ const Beneficiary = {
     const $match = {is_archived: false, agency: currentUser.agency};
     if (query.show_archive) $match.is_archived = true;
     if (query.projectId) $match.projects = ObjectId(query.projectId);
+    if (query.withBank) $match.bank_account = {$exists: true};
     if (query.phone) $match.phone = {$regex: new RegExp(`${query.phone}`), $options: 'i'};
     if (query.name) $match.name = {$regex: new RegExp(`${query.name}`), $options: 'i'};
+    if (query.bank) Object.assign($match, {'bank_account.institution': ObjectId(query.bank)});
     $match.agency = currentUser.agency;
     const sort = {};
     if (query.sort === 'address' || query.sort === 'name') sort[query.sort] = 1;
@@ -472,6 +477,10 @@ const Beneficiary = {
     const beneficiaryByAge = await this.countBeneficiaryViaAge(query.projectId);
     const beneficiaryViaAidConnect = await this.countBeneficiaryViaAidConnect(query.projectId);
     return {beneficiaryByGender, beneficiaryByProject, beneficiaryByAge, beneficiaryViaAidConnect};
+  },
+
+  async addBankAccount(id, payload) {
+    return BeneficiaryModel.findOneAndUpdate({_id: id}, {bank_account: payload}, {new: true});
   }
 };
 
@@ -492,5 +501,6 @@ module.exports = {
     return Beneficiary.addToProjectByBenfId(benfId, projectId);
   },
   checkBeneficiary: req => Beneficiary.checkBeneficiary(req.params.phone),
-  getReportingData: req => Beneficiary.getReportingData(req.query)
+  getReportingData: req => Beneficiary.getReportingData(req.query),
+  addBankAccount: req => Beneficiary.addBankAccount(req.params.id, req.payload)
 };

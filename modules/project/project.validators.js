@@ -1,17 +1,18 @@
 const Joi = require('joi');
-const {ProjectModel, BeneficiaryModel} = require('../models');
+const {ProjectModel, BeneficiaryModel, InstitutionModel} = require('../models');
 
 const GooseJoi = require('../../helpers/utils/goosejoi');
-const {addInstitution} = require('./project.controllers');
 
 const Project = GooseJoi.convert(ProjectModel);
 const Beneficiary = GooseJoi.convert(BeneficiaryModel);
+const Institution = GooseJoi.convert(InstitutionModel);
 
 module.exports = {
   add: {
     payload: Joi.object({
       name: Project.name,
       file: Joi.any(),
+      start_date: Project.start_date,
       end_date: Project.end_date,
       project_manager: Project.project_manager,
       location: Project.location,
@@ -56,6 +57,7 @@ module.exports = {
     params: GooseJoi.id(),
     payload: Joi.object({
       name: Project.name.optional(),
+      start_date: Project.start_date,
       end_date: Project.end_date,
       project_manager: Project.project_manager,
       location: Project.location,
@@ -102,6 +104,19 @@ module.exports = {
     params: GooseJoi.id(),
     payload: Joi.object({
       institutionId: Joi.string()
+    })
+  },
+  addNewInstitution: {
+    params: GooseJoi.id(),
+    payload: Joi.object({
+      name: Institution.name.example('Himalayan Bank'),
+      bisCode: Institution.bisCode.example('HMB'),
+      address: Institution.address.example('Kamaladi, Kathmandu'),
+      phone: Institution.phone.example('01-4245980'),
+      email: Institution.email.example('testinstitute@gmail.com'),
+      logoUrl: Institution.logoUrl.example('https://www.google.com/logo.png'),
+      account_number: Joi.string().example('0000000000000000000'),
+      project: Joi.string().example('123456')
     })
   },
   getInstitution: {

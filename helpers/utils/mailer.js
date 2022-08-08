@@ -1,12 +1,25 @@
-const nodemailer = require('nodemailer');
 const config = require('config');
+const fs = require('fs');
 const handlebars = require('handlebars');
+const nodemailer = require('nodemailer');
+const ses = require('nodemailer-ses-transport');
 
 const host_url = config.get('app.frontEndUrl');
-const fs = require('fs');
 const {NOTIFICATION_TYPES} = require('../../constants');
 
-const transporter = nodemailer.createTransport(config.get('services.nodemailer'));
+const emailConfig = config.get('services.nodemailer.prefer');
+// Defaults to AWS SES
+
+let transporter = nodemailer.createTransport(
+  ses({
+    accessKeyId: config.get('services.nodemailer.aws.accessKeyId'),
+    secretAccessKey: config.get('services.nodemailer.aws.secretAccessKey')
+  })
+);
+if (emailConfig === 'gmail') {
+  transporter = nodemailer.createTransport(config.get('services.nodemailer.gmail'));
+}
+
 handlebars.registerHelper('host_url', () => host_url);
 
 const Templates = {
@@ -17,6 +30,10 @@ const Templates = {
   [NOTIFICATION_TYPES.vendor_registered]: {
     subject: 'New Vendor Registered',
     html: `${__dirname}/../../assets/email_templates/new_vendor_registered.html`
+  },
+  [NOTIFICATION_TYPES.otp_by_mail]: {
+    subject: 'Login OTP',
+    html: `${__dirname}/../../assets/email_templates/otp.html`
   }
 };
 
@@ -40,13 +57,12 @@ class Messenger {
   }
 
   async send(payload) {
-    const isEmailService = config.get('app.email_on');
+    const isEmailService = config.get('services.nodemailer.is_enabled');
     if (!isEmailService) return null;
     const me = this;
-    const sender = 'rahat@rumsan.com';
+    const sender = config.get('services.otp.address');
 
     const template = this.getTemplate(sender, payload.template);
-
     if (!template) throw new Error('No template is defined');
     if (!payload.to) return null;
 
