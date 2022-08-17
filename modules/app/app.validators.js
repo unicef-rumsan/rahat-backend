@@ -52,5 +52,11 @@ module.exports = {
     params: Joi.object({
       assetId: Joi.string()
     })
+  },
+
+  setDefaultProject: {
+    payload: Joi.object({
+      default_project: Joi.string()
+    })
   }
 };

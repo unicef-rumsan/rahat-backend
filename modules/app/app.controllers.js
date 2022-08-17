@@ -87,11 +87,11 @@ const App = {
     }
   },
 
-  async listSettings(req,h) {
+  async listSettings(req, h) {
     let settings = fs.readFileSync(settingsPath);
     settings = JSON.parse(settings);
     const agency = await Agency.getFirst();
-    if(!agency) return h.response({ isSetup: false }).code(404);
+    if (!agency) return h.response({isSetup: false}).code(404);
     return Object.assign(settings, {
       isSetup: agency != null,
       version: packageJson.version,
@@ -200,6 +200,14 @@ const App = {
     } catch (e) {
       return e;
     }
+  },
+
+  async setDefaultProject(payload) {
+    const {_id} = await Agency.getFirst();
+    const agency = await Agency.update(_id, {
+      default_project: payload.default_project
+    });
+    return agency;
   }
 };
 
@@ -210,12 +218,13 @@ module.exports = {
     return App.setup(req.payload);
   },
   setupWallet: req => App.setupWallet(),
-  listSettings: (req,h) => App.listSettings(req,h),
+  listSettings: (req, h) => App.listSettings(req, h),
   getContractAbi: req => App.getContractAbi(req.params.contractName),
   getContractBytecode: req => App.getContractBytecode(req.params.contractName),
   setupContracts: req => App.setupContracts(),
   getDashboardData: req => App.getDashboardData(req.currentUser),
   setKobotoolbox: req => App.setKobotoolbox(req.payload),
   getKoboForms: req => App.getKoboForms(req.currentUser),
-  getKoboFormsData: req => App.getKoboFormsData(req.currentUser, req.params.assetId)
+  getKoboFormsData: req => App.getKoboFormsData(req.currentUser, req.params.assetId),
+  setDefaultProject: req => App.setDefaultProject(req.payload)
 };

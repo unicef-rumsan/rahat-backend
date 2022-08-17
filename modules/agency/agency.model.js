@@ -8,6 +8,7 @@ const schema = {
   email: {type: String, joi: Joi.string().email()},
   address: String,
   is_approved: {type: Boolean, required: true, default: false},
+  default_project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
   token: {
     name: {type: String},
     symbol: {type: String},
