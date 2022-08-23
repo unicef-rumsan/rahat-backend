@@ -55,9 +55,9 @@ jobs:
         run: |
           yarn install
       
-      - name: run test coverage
-        run: |
-          yarn run coverage 
+      # - name: run test coverage
+      #   run: |
+      #     yarn run coverage 
   
   deploy:
     name: build docker image and push to docker hub
