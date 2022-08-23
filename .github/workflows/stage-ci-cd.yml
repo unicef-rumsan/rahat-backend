@@ -85,4 +85,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: esatya/rahat_palika_server:stage:stage
+          tags: esatya/rahat_palika_server:stage
