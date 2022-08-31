@@ -18,7 +18,8 @@ const schema = {
     rahat: {type: String},
     rahat_admin: {type: String},
     rahat_erc20: {type: String},
-    rahat_erc1155: {type: String}
+    rahat_erc1155: {type: String},
+    rahat_trigger: {type: String}
   },
   kobotool_auth: {
     kpi: {type: String},

@@ -55,7 +55,6 @@ const App = {
   },
 
   async setup(payload) {
-    console.log('herr');
     let isSetup = false;
     let agency = await Agency.getFirst();
     if (agency) isSetup = true;
@@ -66,7 +65,8 @@ const App = {
         admin.wallet_address,
         token.name,
         token.symbol,
-        token.supply
+        token.supply,
+        payload.triggerConfirmation
       );
       // const settingsData = JSON.parse(fs.readFileSync(settingsPath));
       // settingsData.contracts = contracts;
@@ -108,8 +108,9 @@ const App = {
     return getBytecode(contractName);
   },
 
-  async setupContracts(adminAccount, tokenName, tokenSymbol, initialSupply) {
+  async setupContracts(adminAccount, tokenName, tokenSymbol, initialSupply, triggerConfirmation) {
     console.log(adminAccount);
+    console.log('+++++++Deploying contracts+++++++');
     const {abi: erc20Abi} = getAbi('RahatERC20');
     const {bytecode: erc20Bytecode} = getBytecode('RahatERC20');
     const {abi: erc1155Abi} = getAbi('RahatERC1155');
@@ -118,27 +119,44 @@ const App = {
     const {bytecode: rahatBytecode} = getBytecode('Rahat');
     const {abi: rahatAdminAbi} = getAbi('RahatAdmin');
     const {bytecode: rahatAdminBytecode} = getBytecode('RahatAdmin');
+    const {abi: RahatTriggerResponseAbi} = getAbi('RahatTriggerResponse');
+    const {bytecode: rahatTriggerResponseBytecode} = getBytecode('RahatTriggerResponse');
     try {
+      console.log('1/5 : Deploying RahatERC20');
       const rahat_erc20 = await deployContract(erc20Abi, erc20Bytecode, [
         tokenName,
         tokenSymbol,
         adminAccount
       ]);
       console.log({rahat_erc20});
+      console.log('2/5 : Deploying RahatERC1155');
       const rahat_erc1155 = await deployContract(erc1155Abi, erc1155Bytecode, [adminAccount]);
+      console.log({rahat_erc1155});
+      console.log('3/5 : Deploying TriggerResponse');
+      const rahat_trigger = await deployContract(
+        RahatTriggerResponseAbi,
+        rahatTriggerResponseBytecode,
+        [adminAccount, triggerConfirmation]
+      );
+      console.log({rahat_trigger});
+      console.log('4/5 : Deploying Rahat');
       const rahat = await deployContract(rahatAbi, rahatBytecode, [
         rahat_erc20,
-        rahat_erc1155,
+        rahat_trigger,
         adminAccount
       ]);
+      console.log({rahat});
+      console.log('5/5 : Deploying RahatAdmin');
       const rahat_admin = await deployContract(rahatAdminAbi, rahatAdminBytecode, [
         rahat_erc20,
-        rahat_erc1155,
         rahat,
         initialSupply,
         adminAccount
       ]);
-      return {rahat_erc20, rahat_erc1155, rahat, rahat_admin};
+      console.log({rahat_admin});
+
+      console.log('Deployment Completed');
+      return {rahat_erc20, rahat_erc1155, rahat, rahat_admin, rahat_trigger};
     } catch (e) {
       throw Error(`ERROR:${e}`);
     }
