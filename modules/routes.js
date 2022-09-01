@@ -13,6 +13,7 @@ const Mobilizer = require('./mobilizer/mobilizer.routes');
 const Nft = require('./nft/nft.routes');
 const Notification = require('./notification/notification.routes');
 const Sms = require('./sms/sms.routes');
+const Report = require('./report/report.routes');
 
 module.exports = {
   setting,
@@ -29,5 +30,6 @@ module.exports = {
   Mobilizer,
   Nft,
   Notification,
+  Report,
   Sms
 };
