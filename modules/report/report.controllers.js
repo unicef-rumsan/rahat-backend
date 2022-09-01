@@ -1,5 +1,5 @@
 const config = require('config');
-const {BeneficiaryModel, VendorModel} = require('../models');
+const {BeneficiaryModel, VendorModel, ProjectModel} = require('../models');
 
 const Report = {
   _checkToken(token) {
@@ -17,10 +17,16 @@ const Report = {
   listVendors(req) {
     this._checkToken(req.headers.report_token);
     return VendorModel.find({});
+  },
+
+  listProjects(req) {
+    this._checkToken(req.headers.report_token);
+    return ProjectModel.find({});
   }
 };
 
 module.exports = {
   listBeneficiaries: req => Report.listBeneficiaries(req),
-  listVendors: req => Report.listVendors(req)
+  listVendors: req => Report.listVendors(req),
+  listProjects: req => Report.listProjects(req)
 };
