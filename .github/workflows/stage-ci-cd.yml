@@ -9,51 +9,51 @@ on:
       - "stage"
 
 jobs:
-  build-coverage:
-    name: install dependencies and test coverage
-    runs-on: ubuntu-latest
+  # build-coverage:
+  #   name: install dependencies and test coverage
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 14.17
+  #   steps:
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 14.17
 
-      - uses: actions/checkout@v3
-        with:
-          ref: stage
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         ref: stage
       
-      - name: create config folder
-        run: |
-          mkdir -p config
-          ls config
+  #     - name: create config folder
+  #       run: |
+  #         mkdir -p config
+  #         ls config
 
-      - name: setup local.json for ci
-        id: create-local-json
-        uses: jsdaniell/create-json@1.1.2
-        with:
-          name: 'local.json'
-          json: ${{ secrets.CONFIG_LOCAL_STAGE }}
-          dir: 'config/'
+  #     - name: setup local.json for ci
+  #       id: create-local-json
+  #       uses: jsdaniell/create-json@1.1.2
+  #       with:
+  #         name: 'local.json'
+  #         json: ${{ secrets.CONFIG_LOCAL_STAGE }}
+  #         dir: 'config/'
       
-      - name: setup privateKey.json for ci
-        id: create-privatekey-json
-        uses: jsdaniell/create-json@1.1.2
-        with:
-          name: 'privateKey.json'
-          json: ${{ secrets.CONFIG_PRIVATEKEY_STAGE }}
-          dir: 'config/'
+  #     - name: setup privateKey.json for ci
+  #       id: create-privatekey-json
+  #       uses: jsdaniell/create-json@1.1.2
+  #       with:
+  #         name: 'privateKey.json'
+  #         json: ${{ secrets.CONFIG_PRIVATEKEY_STAGE }}
+  #         dir: 'config/'
       
-      - name: setup settings.json for ci
-        id: create-settings-json
-        uses: jsdaniell/create-json@1.1.2
-        with:
-          name: 'settings.json'
-          json: ${{ secrets.CONFIG_SETTINGS_STAGE }}
-          dir: 'config/'
+  #     - name: setup settings.json for ci
+  #       id: create-settings-json
+  #       uses: jsdaniell/create-json@1.1.2
+  #       with:
+  #         name: 'settings.json'
+  #         json: ${{ secrets.CONFIG_SETTINGS_STAGE }}
+  #         dir: 'config/'
       
-      - name: install node dependencies
-        run: |
-          yarn install
+  #     - name: install node dependencies
+  #       run: |
+  #         yarn install
       
       # - name: run test coverage
       #   run: |
@@ -62,7 +62,7 @@ jobs:
   deploy:
     name: build docker image and push to docker hub
     runs-on: ubuntu-latest
-    needs: build-coverage
+    # needs: build-coverage
 
     steps:
       - uses: actions/checkout@v3
@@ -85,4 +85,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: esatya/rahat_palika_server:stage
+          tags: esatya/unicef_rahat_backend:stage
