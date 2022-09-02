@@ -24,6 +24,7 @@ module.exports = {
           .required()
           .example('0x66bBca46661c3F51c401aBfaBaF33c5295480896')
       }),
+      triggerConfirmation: Joi.number().required().example(2),
       token: Joi.object({
         name: Joi.string().required().example('RAHAT'),
         symbol: Joi.string().required().example('RTH'),
@@ -51,6 +52,12 @@ module.exports = {
   getKoboFormsData: {
     params: Joi.object({
       assetId: Joi.string()
+    })
+  },
+
+  setDefaultProject: {
+    payload: Joi.object({
+      default_project: Joi.string()
     })
   }
 };

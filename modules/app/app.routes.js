@@ -61,7 +61,9 @@ const routes = {
     '/kobotoolbox/maps',
     'Set Kobo forms maps to rahat',
     [AGENCY.WRITE, AGENCY.ADMIN]
-  ]
+  ],
+
+  setDefaultProject: ['PUT', '/defaultProject', 'Set default project']
 };
 
 function register(app) {

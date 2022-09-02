@@ -1,6 +1,6 @@
 const validators = require('./user.validators');
 const controllers = require('./user.controllers');
-const {USER} = require('../../constants/permissions');
+const {USER, AGENCY} = require('../../constants/permissions');
 
 const routes = {
   add: ['POST', '', 'Add a new user', [USER.WRITE, USER.ADMIN]],
@@ -15,7 +15,10 @@ const routes = {
   addRoles: ['PATCH', '/{id}/roles', 'Add roles to a user', [USER.WRITE, USER.ADMIN]],
   removeRole: ['DELETE', '/{id}/roles', 'Remove roles from user', [USER.WRITE, USER.ADMIN]],
   register: ['POST', '/register', 'Register a new user'],
-  checkEmail: ['POST', '/email', 'Check user with given email']
+  checkEmail: ['POST', '/email', 'Check user with given email'],
+  token: ['GET', '/token', 'generate token'],
+  getOtpByMail: ['POST', '/otp_by_mail', 'Send OTP for Email Login', []],
+  verifyOtpFromMail: ['POST', '/otp_verification', 'Verify OTP from Email Login', []]
 };
 
 /**

@@ -8,6 +8,7 @@ const schema = {
   email: {type: String, joi: Joi.string().email()},
   address: String,
   is_approved: {type: Boolean, required: true, default: false},
+  default_project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
   token: {
     name: {type: String},
     symbol: {type: String},
@@ -17,7 +18,8 @@ const schema = {
     rahat: {type: String},
     rahat_admin: {type: String},
     rahat_erc20: {type: String},
-    rahat_erc1155: {type: String}
+    rahat_erc1155: {type: String},
+    rahat_trigger: {type: String}
   },
   kobotool_auth: {
     kpi: {type: String},

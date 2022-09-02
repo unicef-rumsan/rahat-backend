@@ -3,7 +3,7 @@ const controllers = require('./agency.controllers');
 const {AGENCY} = require('../../constants/permissions');
 
 const routes = {
-  getById: ['GET', '/{id}', 'Get an agency by id.', [AGENCY.READ, AGENCY.ADMIN]],
+  getById: ['GET', '/{id}', 'Get agency by id.', [AGENCY.READ, AGENCY.ADMIN]],
   update: ['PUT', '/{id}', 'Update the agency information', [AGENCY.WRITE, AGENCY.ADMIN]],
   setContracts: [
     'PATCH',

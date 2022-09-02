@@ -1,11 +1,17 @@
+const config = require('config');
+const ethers = require('ethers');
+const EthCrypto = require('eth-crypto');
+const jsonwebtoken = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const RSUser = require('rs-user');
-const ethers = require('ethers');
 
 const {ObjectId} = mongoose.Schema;
 
+const {privateKey} = require('../../config/privateKey.json');
+
 const ws = require('../../helpers/utils/socket');
 const {DataUtils} = require('../../helpers/utils');
+const OTPController = require('../otp/otp.controllers');
 const {Role} = require('./role.controllers');
 const {ROLES} = require('../../constants');
 const Mailer = require('../../helpers/utils/mailer');
@@ -187,6 +193,7 @@ const controllers = {
     ];
     return User.model.aggregate(query);
   },
+
   async sendMailToAdmin(mailPayload = {}) {
     try {
       const admins = await this.listAdmins();
@@ -262,18 +269,47 @@ const controllers = {
     } catch (e) {
       throw Error(`ERROR: ${e}`);
     }
+  },
+
+  async token(request) {
+    const campaignUser = request.query.email;
+    const jwtDuration = config.get('jwt.duration');
+    const appSecret = config.get('app.secret');
+    const jwtToken = jsonwebtoken.sign({email: campaignUser}, appSecret, {expiresIn: jwtDuration});
+    return jwtToken;
+  },
+
+  async getOtpByMail(request) {
+    const {address} = request.payload;
+    const existingUser = await controllers.getUserByEmail(address);
+    if (!existingUser) return {msg: "User doesn't exists.", status: false};
+    const {token} = await OTPController.generate(request);
+    const mailPayload = {
+      data: {email: address, token},
+      to: address,
+      template: 'Login OTP'
+    };
+    try {
+      await Mailer.send(mailPayload);
+    } catch (e) {
+      console.log('Err in mailer: ', e);
+    }
+    return {msg: 'Email Sent to User', status: true};
+  },
+
+  async verifyOtpFromMail(request) {
+    const {encryptionKey, otp} = request.payload;
+    const isVerified = await OTPController.verify(request);
+    const otpUser = await OTPController.Otp.model.findOne({token: otp});
+    if (!isVerified) return false;
+    const existingUser = await User.model.findOne({email: otpUser.address});
+    const token = await User.generateToken(existingUser);
+    const encrytedPrivateKey = await EthCrypto.encryptWithPublicKey(
+      encryptionKey,
+      privateKey.toString()
+    );
+    return {key: encrytedPrivateKey, token, user: existingUser};
   }
 };
 
 module.exports = controllers;
-
-// module.exports = {
-//   userControllers,
-//   loginWallet: (req) => userControllers.loginWallet(req.payload),
-//   findById: (req) => {
-//     const { id } = req.params;
-//     if (ethers.utils.isAddress(id)) return userControllers.getByWalletAddress(id, req.currentUser);
-//     return userControllers.findById(req.params.id, req.currentUser);
-//   },
-//   list: (req) => userControllers.list(req.query),
-// };

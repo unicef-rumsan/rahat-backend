@@ -55,7 +55,6 @@ const App = {
   },
 
   async setup(payload) {
-    console.log('herr');
     let isSetup = false;
     let agency = await Agency.getFirst();
     if (agency) isSetup = true;
@@ -66,7 +65,8 @@ const App = {
         admin.wallet_address,
         token.name,
         token.symbol,
-        token.supply
+        token.supply,
+        payload.triggerConfirmation
       );
       // const settingsData = JSON.parse(fs.readFileSync(settingsPath));
       // settingsData.contracts = contracts;
@@ -76,6 +76,7 @@ const App = {
       await Agency.approve(agency._id);
       payload.admin.roles = ['Admin'];
       payload.admin.agency = agency._id;
+      payload.admin.wallet_address = payload.admin.wallet_address.toLowerCase();
       await User.create(payload.admin);
       const settings = await this.listSettings();
       settings.user = await getByWalletAddress(payload.admin.wallet_address);
@@ -86,10 +87,11 @@ const App = {
     }
   },
 
-  async listSettings() {
+  async listSettings(req, h) {
     let settings = fs.readFileSync(settingsPath);
     settings = JSON.parse(settings);
     const agency = await Agency.getFirst();
+    if (!agency) return h.response({isSetup: false}).code(404);
     return Object.assign(settings, {
       isSetup: agency != null,
       version: packageJson.version,
@@ -106,8 +108,9 @@ const App = {
     return getBytecode(contractName);
   },
 
-  async setupContracts(adminAccount, tokenName, tokenSymbol, initialSupply) {
+  async setupContracts(adminAccount, tokenName, tokenSymbol, initialSupply, triggerConfirmation) {
     console.log(adminAccount);
+    console.log('+++++++Deploying contracts+++++++');
     const {abi: erc20Abi} = getAbi('RahatERC20');
     const {bytecode: erc20Bytecode} = getBytecode('RahatERC20');
     const {abi: erc1155Abi} = getAbi('RahatERC1155');
@@ -116,27 +119,44 @@ const App = {
     const {bytecode: rahatBytecode} = getBytecode('Rahat');
     const {abi: rahatAdminAbi} = getAbi('RahatAdmin');
     const {bytecode: rahatAdminBytecode} = getBytecode('RahatAdmin');
+    const {abi: RahatTriggerResponseAbi} = getAbi('RahatTriggerResponse');
+    const {bytecode: rahatTriggerResponseBytecode} = getBytecode('RahatTriggerResponse');
     try {
+      console.log('1/5 : Deploying RahatERC20');
       const rahat_erc20 = await deployContract(erc20Abi, erc20Bytecode, [
         tokenName,
         tokenSymbol,
         adminAccount
       ]);
       console.log({rahat_erc20});
+      console.log('2/5 : Deploying RahatERC1155');
       const rahat_erc1155 = await deployContract(erc1155Abi, erc1155Bytecode, [adminAccount]);
+      console.log({rahat_erc1155});
+      console.log('3/5 : Deploying TriggerResponse');
+      const rahat_trigger = await deployContract(
+        RahatTriggerResponseAbi,
+        rahatTriggerResponseBytecode,
+        [adminAccount, triggerConfirmation]
+      );
+      console.log({rahat_trigger});
+      console.log('4/5 : Deploying Rahat');
       const rahat = await deployContract(rahatAbi, rahatBytecode, [
         rahat_erc20,
-        rahat_erc1155,
+        rahat_trigger,
         adminAccount
       ]);
+      console.log({rahat});
+      console.log('5/5 : Deploying RahatAdmin');
       const rahat_admin = await deployContract(rahatAdminAbi, rahatAdminBytecode, [
         rahat_erc20,
-        rahat_erc1155,
         rahat,
         initialSupply,
         adminAccount
       ]);
-      return {rahat_erc20, rahat_erc1155, rahat, rahat_admin};
+      console.log({rahat_admin});
+
+      console.log('Deployment Completed');
+      return {rahat_erc20, rahat_erc1155, rahat, rahat_admin, rahat_trigger};
     } catch (e) {
       throw Error(`ERROR:${e}`);
     }
@@ -198,6 +218,14 @@ const App = {
     } catch (e) {
       return e;
     }
+  },
+
+  async setDefaultProject(payload) {
+    const {_id} = await Agency.getFirst();
+    const agency = await Agency.update(_id, {
+      default_project: payload.default_project
+    });
+    return agency;
   }
 };
 
@@ -208,12 +236,13 @@ module.exports = {
     return App.setup(req.payload);
   },
   setupWallet: req => App.setupWallet(),
-  listSettings: req => App.listSettings(),
+  listSettings: (req, h) => App.listSettings(req, h),
   getContractAbi: req => App.getContractAbi(req.params.contractName),
   getContractBytecode: req => App.getContractBytecode(req.params.contractName),
   setupContracts: req => App.setupContracts(),
   getDashboardData: req => App.getDashboardData(req.currentUser),
   setKobotoolbox: req => App.setKobotoolbox(req.payload),
   getKoboForms: req => App.getKoboForms(req.currentUser),
-  getKoboFormsData: req => App.getKoboFormsData(req.currentUser, req.params.assetId)
+  getKoboFormsData: req => App.getKoboFormsData(req.currentUser, req.params.assetId),
+  setDefaultProject: req => App.setDefaultProject(req.payload)
 };

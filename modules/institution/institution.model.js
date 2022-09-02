@@ -11,7 +11,20 @@ const schema = {
     trim: true,
     description: 'Name of institution'
   },
+  account_number: {
+    type: String,
+    required: true,
+    description: 'Account Number of institution'
+  },
+  bisCode: {
+    type: String,
+    description: 'BIS code of institution'
+  },
   address: {
+    type: String,
+    description: 'Address of institution'
+  },
+  email: {
     type: String,
     description: 'Address of institution'
   },
@@ -25,6 +38,16 @@ const schema = {
     default: InstitutionConstants.status.Active,
     enum: Object.values(InstitutionConstants.status),
     description: 'Status of institution'
+  },
+  project: {
+    type: ObjectId,
+    ref: 'Project',
+    required: true,
+    description: 'Project Id associated with institution'
+  },
+  logoUrl: {
+    type: String,
+    description: 'Logo url of institution'
   },
   agency: {
     type: ObjectId,
