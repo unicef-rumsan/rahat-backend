@@ -2,7 +2,6 @@ const fs = require('fs');
 const ethers = require('ethers');
 const config = require('config');
 const axios = require('axios');
-const app = require('../../app');
 
 const packageJson = require('../../package.json');
 const {Agency} = require('../agency/agency.controllers');
@@ -15,7 +14,7 @@ const PermissionsConstants = require('../../constants/permissions');
 const {ObjectUtils} = require('../../helpers/utils');
 
 const settingsPath = `${__dirname}/../../config/settings.json`;
-const privateKeyPath = `${__dirname}/../../config/privateKey.json`;
+const adminPK = `${__dirname}/../../config/privateKeys/admin.json`;
 const {getAbi, getBytecode} = require('../../helpers/blockchain/abi');
 const {User, getByWalletAddress} = require('../user/user.controllers');
 const {Role} = require('../user/role.controllers');
@@ -37,7 +36,7 @@ const App = {
 
   async setupWallet() {
     const agency = await Agency.getFirst();
-    if (agency) return app.error('Server has already been setup.', 500);
+    if (agency) throw new Error('Server has already been setup.');
     // Create Admin role
     const permissions = ObjectUtils.getAllValues(PermissionsConstants);
     await Role.add({
@@ -49,25 +48,26 @@ const App = {
     // Setup new wallet for the server.
     // Please make sure you backup the private key securely.
     const wallet = ethers.Wallet.createRandom();
-    fs.writeFileSync(privateKeyPath, JSON.stringify({privateKey: wallet.privateKey}));
+    fs.writeFileSync(adminPK, JSON.stringify({privateKey: wallet.privateKey}));
     this.saveSetting('wallet_address', wallet.address);
     return {address: wallet.address};
   },
 
-  async setup(payload) {
+  async setup(payload, contracts) {
     let isSetup = false;
     let agency = await Agency.getFirst();
     if (agency) isSetup = true;
-    if (isSetup) return app.error('Server has already been setup.', 500);
+    if (isSetup) throw new Error('Server has already been setup.');
     const {token, admin} = payload;
     try {
-      const contracts = await this.setupContracts(
-        admin.wallet_address,
-        token.name,
-        token.symbol,
-        token.supply,
-        payload.triggerConfirmation
-      );
+      if (!contracts)
+        contracts = await this.setupContracts(
+          admin.wallet_address,
+          token.name,
+          token.symbol,
+          token.supply,
+          payload.triggerConfirmation
+        );
       // const settingsData = JSON.parse(fs.readFileSync(settingsPath));
       // settingsData.contracts = contracts;
       // fs.writeFileSync(settingsPath, JSON.stringify(settingsData));

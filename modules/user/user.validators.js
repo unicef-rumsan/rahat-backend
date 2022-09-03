@@ -74,6 +74,15 @@ module.exports = {
       email: Joi.string().required()
     })
   },
+
+  loginUsingWallet: {
+    payload: Joi.object({
+      encryptionKey: Joi.string().required(),
+      dataSigned: Joi.string().required(),
+      signature: Joi.string().required()
+    })
+  },
+
   token: {
     query: Joi.object({
       email: Joi.string()

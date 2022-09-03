@@ -2,11 +2,11 @@ name: Stage CI/CD
 on:
   push:
     branches:
-      - "stage"
+      - 'stage'
 
   pull_request:
     branches:
-      - "stage"
+      - 'stage'
 
 jobs:
   build-coverage:
@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: stage
-      
+
       - name: create config folder
         run: |
           mkdir -p config
@@ -34,15 +34,15 @@ jobs:
           name: 'local.json'
           json: ${{ secrets.CONFIG_LOCAL_STAGE }}
           dir: 'config/'
-      
-      - name: setup privateKey.json for ci
+
+      - name: setup admin privateKey for ci
         id: create-privatekey-json
         uses: jsdaniell/create-json@1.1.2
         with:
-          name: 'privateKey.json'
+          name: 'admin.json'
           json: ${{ secrets.CONFIG_PRIVATEKEY_STAGE }}
-          dir: 'config/'
-      
+          dir: 'config/privateKeys'
+
       - name: setup settings.json for ci
         id: create-settings-json
         uses: jsdaniell/create-json@1.1.2
@@ -50,15 +50,15 @@ jobs:
           name: 'settings.json'
           json: ${{ secrets.CONFIG_SETTINGS_STAGE }}
           dir: 'config/'
-      
+
       - name: install node dependencies
         run: |
           yarn install
-      
+
       # - name: run test coverage
       #   run: |
-      #     yarn run coverage 
-  
+      #     yarn run coverage
+
   deploy:
     name: build docker image and push to docker hub
     runs-on: ubuntu-latest

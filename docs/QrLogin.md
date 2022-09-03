@@ -10,7 +10,7 @@ const payload = {
     '36d3b882f51f687f085474ef9a9289bea3108a3c181a3b8ad75aba6a580f93bb4584a729e224f09e06f9281fd74f17474f0a77c01a5223db8f566fa34d6966a7'
 };
 
-const mnemonic = 'damage van genius guitar topic width subway brother inherit sketch keen trumpet';
+const mnemonic = '';
 // address: 0x1E43683929432f609952BfB857d1eA4231A9E9b7
 
 const ethers = require('ethers');

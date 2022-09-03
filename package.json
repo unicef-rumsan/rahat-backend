@@ -33,7 +33,6 @@
   "nodemonConfig": {
     "ignore": [
       "public/*",
-      "play/*",
       "test1/*"
     ]
   },

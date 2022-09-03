@@ -18,9 +18,9 @@ const routes = {
       allow: 'multipart/form-data',
       maxBytes: 1024 * 1024 * UPLOAD_SIZE_MB
     },
-    permissions: [PROJECT.READ, PROJECT.ADMIN]
+    permissions: [PROJECT.WRITE, PROJECT.ADMIN]
   },
-  // add: ['POST', '', 'Add a project', [PROJECT.WRITE, PROJECT.ADMIN]],
+  add2: ['POST', '/add2', 'Add a project', [PROJECT.WRITE, PROJECT.ADMIN]],
   getById: ['GET', '/{id}', 'Get a project by Id', [PROJECT.READ, PROJECT.ADMIN]],
   remove: ['DELETE', '/{id}', 'Remove and archive a project', [PROJECT.REMOVE, PROJECT.ADMIN]],
   update: ['PUT', '/{id}', 'Update project details', [PROJECT.WRITE, PROJECT.ADMIN]],
