@@ -32,7 +32,7 @@ function wsWeb3Contract(contractName, contractAddress) {
   return wsInstance;
 }
 async function deployContract(abi, bytecode, args) {
-  const {privateKey} = require('../../config/privateKey.json');
+  const {privateKey} = require('../../config/privateKeys/deployer.json');
   const signer = new ethers.Wallet(privateKey, provider);
   const factory = new ethers.ContractFactory(abi, bytecode, signer);
   const contract = await factory.deploy(...args);

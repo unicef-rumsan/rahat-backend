@@ -20,6 +20,14 @@ module.exports = {
       financial_institutions: Joi.string()
     }).label('Project')
   },
+  add2: {
+    payload: Joi.object({
+      name: Project.name,
+      project_manager: Project.project_manager,
+      location: Project.location,
+      description: Joi.string().allow('')
+    }).label('Project')
+  },
   list: {
     query: Joi.object({
       start: Joi.number(),

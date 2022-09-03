@@ -1,11 +1,10 @@
 const config = require('config');
 const ethers = require('ethers');
-const app = require('../../app');
 const Logger = require('../../helpers/logger');
 const {DataUtils} = require('../../helpers/utils');
 const {AgencyModel} = require('../models');
 
-const logger = Logger.getInstance();
+// const logger = Logger.getInstance();
 
 const Agency = {
   add(data) {

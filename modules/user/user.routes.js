@@ -18,7 +18,8 @@ const routes = {
   checkEmail: ['POST', '/email', 'Check user with given email'],
   token: ['GET', '/token', 'generate token'],
   getOtpByMail: ['POST', '/otp_by_mail', 'Send OTP for Email Login', []],
-  verifyOtpFromMail: ['POST', '/otp_verification', 'Verify OTP from Email Login', []]
+  verifyOtpFromMail: ['POST', '/otp_verification', 'Verify OTP from Email Login', []],
+  loginUsingWallet: ['POST', '/login/altWallet', 'Login using blockchain wallet']
 };
 
 /**
