@@ -100,6 +100,10 @@ const App = {
     });
   },
 
+  async listAdmins() {
+    return config.get('contractAdmins');
+  },
+
   async getContractAbi(contractName) {
     return getAbi(contractName);
   },
@@ -235,6 +239,7 @@ module.exports = {
     console.log(req.payloadx);
     return App.setup(req.payload);
   },
+  listAdmins: () => App.listAdmins(),
   setupWallet: req => App.setupWallet(),
   listSettings: (req, h) => App.listSettings(req, h),
   getContractAbi: req => App.getContractAbi(req.params.contractName),

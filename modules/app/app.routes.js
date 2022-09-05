@@ -8,6 +8,11 @@ const routes = {
     path: '/settings',
     description: 'List all the application settings'
   },
+  listAdmins: {
+    method: 'GET',
+    path: '/admins',
+    description: 'List contract trigger admins'
+  },
   setup: {
     method: 'POST',
     path: '/setup',
