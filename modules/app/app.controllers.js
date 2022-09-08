@@ -76,9 +76,9 @@ const App = {
   async listSettings(req, h) {
     const agency = await Agency.getFirst();
     if (!agency) return h.response({isSetup: false}).code(404);
-    agency.redeem_address = serverPK.address;
     return {
       wallet_address: serverPK.address,
+      redeem_address: serverPK.address,
       isSetup: agency != null,
       version: packageJson.version,
       networkUrl: config.get('blockchain.httpProvider'),
