@@ -13,27 +13,13 @@ const {Institution} = require('../institution/institution.controllers');
 const PermissionsConstants = require('../../constants/permissions');
 const {ObjectUtils} = require('../../helpers/utils');
 
-const settingsPath = `${__dirname}/../../config/settings.json`;
-const adminPK = `${__dirname}/../../config/privateKeys/admin.json`;
+const serverPK = require('../../config/privateKeys/server.json');
 const {getAbi, getBytecode} = require('../../helpers/blockchain/abi');
 const {User, getByWalletAddress} = require('../user/user.controllers');
 const {Role} = require('../user/role.controllers');
 const {deployContract} = require('../../helpers/blockchain/contract');
 
 const App = {
-  saveSetting(name, value) {
-    let settings = fs.readFileSync(settingsPath);
-    settings = JSON.parse(settings);
-    settings[name] = value;
-    fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
-  },
-
-  getSetting(name) {
-    let settings = fs.readFileSync(settingsPath);
-    settings = JSON.parse(settings);
-    return settings[name];
-  },
-
   async setupWallet() {
     const agency = await Agency.getFirst();
     if (agency) throw new Error('Server has already been setup.');
@@ -47,10 +33,10 @@ const App = {
 
     // Setup new wallet for the server.
     // Please make sure you backup the private key securely.
-    const wallet = ethers.Wallet.createRandom();
-    fs.writeFileSync(adminPK, JSON.stringify({privateKey: wallet.privateKey}));
-    this.saveSetting('wallet_address', wallet.address);
-    return {address: wallet.address};
+    // const wallet = ethers.Wallet.createRandom();
+    // fs.writeFileSync(adminPK, JSON.stringify({privateKey: wallet.privateKey}));
+    // this.saveSetting('wallet_address', wallet.address);
+    // return {address: wallet.address};
   },
 
   async setup(payload, contracts) {
@@ -88,16 +74,16 @@ const App = {
   },
 
   async listSettings(req, h) {
-    let settings = fs.readFileSync(settingsPath);
-    settings = JSON.parse(settings);
     const agency = await Agency.getFirst();
     if (!agency) return h.response({isSetup: false}).code(404);
-    return Object.assign(settings, {
+    agency.redeem_address = serverPK.address;
+    return {
+      wallet_address: serverPK.address,
       isSetup: agency != null,
       version: packageJson.version,
       networkUrl: config.get('blockchain.httpProvider'),
       agency
-    });
+    };
   },
 
   async listAdmins() {
