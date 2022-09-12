@@ -90,7 +90,8 @@ const App = {
       redeeem: serverPK.address,
       admin: this._getAddressFromPrivateKeyJson('admin'),
       deployer: this._getAddressFromPrivateKeyJson('deployer'),
-      palika: this._getAddressFromPrivateKeyJson('palika')
+      palika: this._getAddressFromPrivateKeyJson('palika'),
+      teamRahat: this._getAddressFromPrivateKeyJson('teamRahat')
     };
     return {
       wallet_address: serverPK.address,
