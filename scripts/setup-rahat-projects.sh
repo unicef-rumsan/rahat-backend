@@ -41,8 +41,7 @@ cp -r $abs_dir/rahat/scripts/docker-compose/* $abs_dir
 # rahat project 
 cp $abs_dir/rahat/config/contracts.example.json $abs_dir/rahat/config/contracts.json
 cp $abs_dir/rahat/config/default.example.json $abs_dir/rahat/config/default.json
-cp $abs_dir/rahat/config/privateKey.example.json $abs_dir/rahat/config/privateKey.json
-cp $abs_dir/rahat/config/settings.example.json $abs_dir/rahat/config/settings.json
+cp $abs_dir/rahat/config/privateKey.example.json $abs_dir/rahat/config/privateKeys/admin.json
 
 # rahat otp 
 cp $abs_dir/rahat-otp/config/default.example.json $abs_dir/rahat-otp/config/default.json

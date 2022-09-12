@@ -181,6 +181,7 @@ const Vendor = {
     delete payload.status;
     delete payload.balance;
     delete payload.agency;
+    payload.projects = payload.projects ? payload.projects.split(',') : [];
 
     return VendorModel.findOneAndUpdate({_id: id, is_archived: false}, payload, {
       new: true,

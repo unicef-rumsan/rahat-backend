@@ -7,7 +7,8 @@ const RSUser = require('rs-user');
 
 const {ObjectId} = mongoose.Schema;
 
-const {privateKey} = require('../../config/privateKey.json');
+const adminPK = require('../../config/privateKeys/admin.json');
+const palikaPK = require('../../config/privateKeys/palika.json');
 
 const ws = require('../../helpers/utils/socket');
 const {DataUtils} = require('../../helpers/utils');
@@ -233,14 +234,9 @@ const controllers = {
 
   async add(request) {
     const data = request.payload;
-    try {
-      //   await controllers.checkUser(request);
-      data.wallet_address = data.wallet_address.toLowerCase();
-      const user = await User.create(data);
-      return user;
-    } catch (e) {
-      return e;
-    }
+    data.wallet_address = data.wallet_address.toLowerCase();
+    const user = await User.create(data);
+    return user;
   },
 
   async register(request) {
@@ -303,12 +299,41 @@ const controllers = {
     const otpUser = await OTPController.Otp.model.findOne({token: otp});
     if (!isVerified) return false;
     const existingUser = await User.model.findOne({email: otpUser.address});
+
     const token = await User.generateToken(existingUser);
-    const encrytedPrivateKey = await EthCrypto.encryptWithPublicKey(
-      encryptionKey,
-      privateKey.toString()
-    );
+    let encrytedPrivateKey = null;
+    try {
+      if (existingUser.roles) {
+        if (existingUser.roles.includes('Admin'))
+          encrytedPrivateKey = await EthCrypto.encryptWithPublicKey(
+            encryptionKey,
+            adminPK.privateKey.toString()
+          );
+        if (existingUser.roles.includes('Palika'))
+          encrytedPrivateKey = await EthCrypto.encryptWithPublicKey(
+            encryptionKey,
+            palikaPK.privateKey.toString()
+          );
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
     return {key: encrytedPrivateKey, token, user: existingUser};
+  },
+
+  async loginUsingWallet(request) {
+    const {encryptionKey, dataSigned, signature} = request.payload;
+
+    const publicKey = ethers.utils.recoverAddress(ethers.utils.hashMessage(dataSigned), signature);
+    const user = await controllers.getByWalletAddress(publicKey);
+    const token = await User.generateToken(user);
+    let encrytedPrivateKey = null;
+    if (publicKey === adminPK.address)
+      encrytedPrivateKey = await EthCrypto.encryptWithPublicKey(
+        encryptionKey,
+        adminPK.privateKey.toString()
+      );
+    return {key: encrytedPrivateKey, token, user};
   }
 };
 

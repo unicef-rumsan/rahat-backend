@@ -20,6 +20,7 @@ const Beneficiary = {
     const {currentUser} = payload;
     payload.agency = currentUser.agency;
     payload.projects = payload.projects ? payload.projects.split(',') : [];
+    if (payload.projects.length > 0) payload.projects = payload.projects[0];
     if (payload.govt_id_image) {
       const decoded = await this.decodeBase64Image(payload.govt_id_image);
       if (decoded.data) {
@@ -92,17 +93,15 @@ const Beneficiary = {
     }
     return BeneficiaryModel.findOneAndUpdate(
       {_id: payload.id},
-      {$addToSet: {projects: payload.project_id}},
+      // {$addToSet: {projects: payload.project_id}},
+      {projects: [payload.project_id]},
       {new: 1}
     );
   },
 
   addToProjectByBenfId(benfId, projectId) {
-    return BeneficiaryModel.findOneAndUpdate(
-      {_id: benfId},
-      {$addToSet: {projects: projectId}},
-      {new: 1}
-    );
+    // ToDo: Temporarily add only one project to beneficiary
+    return BeneficiaryModel.findOneAndUpdate({_id: benfId}, {projects: [projectId]}, {new: 1});
   },
 
   async getbyId(id) {
@@ -173,13 +172,14 @@ const Beneficiary = {
   },
 
   async remove(id, curUserId) {
-    const ben = await BeneficiaryModel.findOneAndUpdate(
-      {_id: id},
-      {is_archived: true, updated_by: curUserId},
-      {new: true}
-    );
-    // TODO blockchain call
-    return ben;
+    // const ben = await BeneficiaryModel.findOneAndUpdate(
+    //   {_id: id},
+    //   {is_archived: true, updated_by: curUserId},
+    //   {new: true}
+    // );
+    // // TODO blockchain call
+    // return ben;
+    return BeneficiaryModel.findByIdAndDelete(id);
   },
 
   // issued_packges = [2,3]
@@ -194,6 +194,7 @@ const Beneficiary = {
     delete payload.balance;
     delete payload.agency;
     if (payload.projects) payload.projects = payload.projects.split(',');
+    if (payload.projects.length > 0) payload.projects = payload.projects[0];
 
     if (payload.govt_id_image) {
       const decoded = await this.decodeBase64Image(payload.govt_id_image);
