@@ -11,6 +11,7 @@ module.exports = {
       phone: Joi.string().example('787878'),
       wallet_address: Joi.string().allow('').optional().example('0x00'),
       email: Joi.string().allow('').optional().example('nepali@gamil.com'),
+      dob: Joi.date().allow(null).optional().example('2000-01-01'),
       address: Joi.string().allow('').optional().example('kathmandu'),
       address_temporary: Joi.string().allow('').optional().example('dang'),
       gender: Joi.string().allow('').optional().example('M'),
