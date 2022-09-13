@@ -1,8 +1,9 @@
 const {BeneficiaryModel, VendorModel, ProjectModel} = require('../models');
 
 const Stats = {
-  listBenGeo() {
-    return BeneficiaryModel.find({}, 'extras.geo_latitude extras.geo_longitude');
+  async listBenGeo() {
+    const data = await BeneficiaryModel.find({}, 'extras.geo_latitude extras.geo_longitude');
+    return data.filter(d => d.extras?.geo_longitude);
   },
   benByWard() {
     return BeneficiaryModel.aggregate([
