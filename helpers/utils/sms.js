@@ -67,7 +67,7 @@ const SMS_SERVICE = {
   get_message: (type, data) => {
     switch (type) {
       case SMS_TRIGGER_TYPE.tokenIssued:
-        return `you have received ${data?.token} tokens from ${data?.agency}`;
+        return `आज वार्ड कार्यलयमा आफ्नाे मोबाइल लिएर उपस्थित भइ राहत रकम लिनुहोला`;
       case SMS_TRIGGER_TYPE.packageIssued:
         return `you have received ${data?.packageName} package from ${data?.agency}`;
       default:
