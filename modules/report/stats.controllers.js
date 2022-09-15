@@ -60,7 +60,7 @@ const Stats = {
         }
       }
     ]);
-    data = data[0];
+    data = data[0] || {};
     data.total_unbanked = await BeneficiaryModel.count({'extras.bank_has': false});
     data.total_vendors = await VendorModel.count({});
     delete data._id;
