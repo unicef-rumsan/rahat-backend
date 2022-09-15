@@ -14,6 +14,7 @@ const Nft = require('./nft/nft.routes');
 const Notification = require('./notification/notification.routes');
 const Sms = require('./sms/sms.routes');
 const Report = require('./report/report.routes');
+const Stats = require('./report/stats.routes');
 
 module.exports = {
   setting,
@@ -31,5 +32,6 @@ module.exports = {
   Nft,
   Notification,
   Report,
-  Sms
+  Sms,
+  Stats
 };

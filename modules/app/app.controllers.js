@@ -73,12 +73,30 @@ const App = {
     }
   },
 
+  _getAddressFromPrivateKeyJson(jsonFileName) {
+    try {
+      const json = require(`../../config/privateKeys/${jsonFileName}.json`);
+      return json.address;
+    } catch (e) {
+      return null;
+    }
+  },
+
   async listSettings(req, h) {
     const agency = await Agency.getFirst();
     if (!agency) return h.response({isSetup: false}).code(404);
+    const addresses = {
+      server: serverPK.address,
+      redeeem: serverPK.address,
+      admin: this._getAddressFromPrivateKeyJson('admin'),
+      deployer: this._getAddressFromPrivateKeyJson('deployer'),
+      palika: this._getAddressFromPrivateKeyJson('palika'),
+      teamRahat: this._getAddressFromPrivateKeyJson('teamRahat')
+    };
     return {
       wallet_address: serverPK.address,
       redeem_address: serverPK.address,
+      addresses,
       isSetup: agency != null,
       version: packageJson.version,
       networkUrl: config.get('blockchain.httpProvider'),
