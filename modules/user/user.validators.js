@@ -50,7 +50,7 @@ module.exports = {
     payload: Joi.object({
       name: Joi.string().optional(),
       email: Joi.string().optional(),
-      phone: Joi.string().optional()
+      phone: Joi.string().optional().allow('')
     })
   },
 
