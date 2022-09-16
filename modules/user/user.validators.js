@@ -14,7 +14,7 @@ module.exports = {
     payload: Joi.object({
       name: Joi.string(),
       email: Joi.string().optional(),
-      phone: Joi.string(),
+      phone: Joi.string().allow(''),
       wallet_address: Joi.string(),
       agency: Joi.string(),
       roles: Joi.array().items(Joi.string())
@@ -64,7 +64,7 @@ module.exports = {
   checkUser: {
     payload: Joi.object({
       email: Joi.string().optional(),
-      phone: Joi.string(),
+      phone: Joi.string().allow(''),
       wallet_address: Joi.string()
     })
   },
