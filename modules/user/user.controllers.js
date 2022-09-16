@@ -9,6 +9,8 @@ const {ObjectId} = mongoose.Schema;
 
 const adminPK = require('../../config/privateKeys/admin.json');
 const palikaPK = require('../../config/privateKeys/palika.json');
+const managerPK = require('../../config/privateKeys/projectManager.json');
+const mobilizerPK = require('../../config/privateKeys/projectManager.json');
 
 const ws = require('../../helpers/utils/socket');
 const {DataUtils} = require('../../helpers/utils');
@@ -313,6 +315,16 @@ const controllers = {
           encrytedPrivateKey = await EthCrypto.encryptWithPublicKey(
             encryptionKey,
             palikaPK.privateKey.toString()
+          );
+        if (existingUser.roles.includes('Manager'))
+          encrytedPrivateKey = await EthCrypto.encryptWithPublicKey(
+            encryptionKey,
+            managerPK.privateKey.toString()
+          );
+        if (existingUser.roles.includes('Mobilizer'))
+          encrytedPrivateKey = await EthCrypto.encryptWithPublicKey(
+            encryptionKey,
+            mobilizerPK.privateKey.toString()
           );
       }
     } catch (e) {
