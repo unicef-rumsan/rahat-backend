@@ -1,7 +1,40 @@
-Your Login OTP is
-<h1>{{token}}</h1>
-This OTP key will expire in 5 minutes<br />
-<strong>IMPORTANT!</strong> Please do not share this code.
-<br /><br />
-Regards,<br />
-Team Rahat
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div style="max-width:800px;max-height: 600px;overflow:auto;line-height:2;background: #333333;">
+    <div style="margin:50px auto;width:70%;padding:40px 40px; border: 1px solid #fff; border-radius: 12px;">
+      <div style="text-align: center;">
+        <img src='https://unicef.xa.rahat.io/static/media/main_logo.e469d331.png' width="250" title="stage4all"
+          alt="stage4all">
+      </div>
+      <div style="color:#fff; text-align: center;">
+        <h4 style="font-size:1.3em;">Your Rahat system login code</h4>
+        <h2
+          style="background: #373737;margin: 0 auto;width: 100%;padding: 0 10px;color: #fff;border-radius: 4px; letter-spacing: 10px">
+          {{token}}</h2>
+      </div>
+      <div style="color: #fff; text-align: left;">
+        <p>This is a one-time-code that expires in 5 minutes.</p>
+        <p style="font-size:0.9em;">Please DO NOT share your code with anyone. Rahat team will never ask for it.</p>
+      </div>
+      <hr style=" border-top: 1px solid rgb(73, 72, 72)" />
+      <div style="color:#fff!important">
+        <p>If you didn't attempt to sign up but received this email, please ignore.
+        </p>
+        <p>
+          Regards,<br />
+          Team Rahat
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
