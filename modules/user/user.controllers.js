@@ -224,7 +224,6 @@ const controllers = {
       $or: [{wallet_address: data.wallet_address}, {email: data.email}, {phone: data.phone}]
     });
     if (user) {
-      if (user.phone === data.phone) throw new Error('Phone Number Already Exists');
       if (user.wallet_address.toLowerCase() === data.wallet_address.toLowerCase()) {
         throw Error('Wallet Address Already Exists');
       }
