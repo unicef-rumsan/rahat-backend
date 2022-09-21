@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema(
   {
-    userId: {type: ObjectId},
+    userId: {type: ObjectId, ref: 'User'},
     page: String,
     ipAddress: String,
     userAgent: String
