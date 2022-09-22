@@ -2,10 +2,10 @@ name: Coveralls CI/CD
 on:
     push:
         branches:
-            - master
+            - random-branch
     pull_request:
         branches:
-            - master
+            - random-branch
 jobs:
     build:
         name: Build
