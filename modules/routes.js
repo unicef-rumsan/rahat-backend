@@ -15,6 +15,7 @@ const Notification = require('./notification/notification.routes');
 const Sms = require('./sms/sms.routes');
 const Report = require('./report/report.routes');
 const Stats = require('./report/stats.routes');
+const Logs = require('./log/log.routes');
 
 module.exports = {
   setting,
@@ -33,5 +34,6 @@ module.exports = {
   Notification,
   Report,
   Sms,
-  Stats
+  Stats,
+  Logs
 };

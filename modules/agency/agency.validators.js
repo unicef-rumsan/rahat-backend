@@ -28,7 +28,8 @@ module.exports = {
       name: Joi.string().optional(),
       email: Joi.string().optional().email(),
       address: Joi.string().optional(),
-      phone: Joi.string().optional()
+      phone: Joi.string().optional(),
+      default_project: Joi.any().optional()
     }).label('Agency')
   }
 };
