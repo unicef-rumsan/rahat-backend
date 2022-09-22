@@ -42,27 +42,27 @@ const Log = {
       sort: {created_at: -1},
       model: LogVisits,
       query: [
-        {$match},
-        {
-          $lookup: {
-            from: 'users',
-            localField: 'userId',
-            foreignField: '_id',
-            as: 'user'
-          }
-        },
-        {
-          $unwind: '$user'
-        },
-        {
-          $project: {
-            page: 1,
-            ipAddress: 1,
-            userAgent: 1,
-            userId: 1,
-            name: {$concat: ['$user.name.first', ' ', '$user.name.last']}
-          }
-        }
+        {$match}
+        // {
+        //   $lookup: {
+        //     from: 'users',
+        //     localField: 'userId',
+        //     foreignField: '_id',
+        //     as: 'user'
+        //   }
+        // },
+        // {
+        //   $unwind: '$user'
+        // },
+        // {
+        //   $project: {
+        //     page: 1,
+        //     ipAddress: 1,
+        //     userAgent: 1,
+        //     userId: 1,
+        //     name: {$concat: ['$user.name.first', ' ', '$user.name.last']}
+        //   }
+        // }
       ]
     });
 
