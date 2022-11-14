@@ -139,6 +139,8 @@ const Beneficiary = {
     if (query.phone) $match.phone = {$regex: new RegExp(`${query.phone}`), $options: 'i'};
     if (query.name) $match.name = {$regex: new RegExp(`${query.name}`), $options: 'i'};
     if (query.bank) Object.assign($match, {'bank_account.institution': ObjectId(query.bank)});
+    if (query.ward)
+      Object.assign($match, {'extras.ward': {$regex: new RegExp(`${query.ward}`), $options: 'i'}});
     $match.agency = currentUser.agency;
     const sort = {};
     if (query.sort === 'address' || query.sort === 'name') sort[query.sort] = 1;
@@ -169,6 +171,11 @@ const Beneficiary = {
         }
       ]
     });
+  },
+
+  async listAvailableWards() {
+    const distinctWards = await BeneficiaryModel.distinct('extras.ward');
+    return distinctWards;
   },
 
   async remove(id, curUserId) {
@@ -503,5 +510,6 @@ module.exports = {
   },
   checkBeneficiary: req => Beneficiary.checkBeneficiary(req.params.phone),
   getReportingData: req => Beneficiary.getReportingData(req.query),
-  addBankAccount: req => Beneficiary.addBankAccount(req.params.id, req.payload)
+  addBankAccount: req => Beneficiary.addBankAccount(req.params.id, req.payload),
+  listAvailableWards: req => Beneficiary.listAvailableWards(req)
 };

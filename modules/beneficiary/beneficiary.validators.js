@@ -65,7 +65,8 @@ module.exports = {
       projectId: Joi.string().optional(),
       show_archive: Joi.bool().optional(),
       sort: Joi.string().optional(),
-      bank: Joi.string().optional()
+      bank: Joi.string().optional(),
+      ward: Joi.string().optional()
     })
   },
   getbyId: {

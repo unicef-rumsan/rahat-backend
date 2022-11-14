@@ -30,6 +30,7 @@ module.exports = {
     query: Joi.object({
       start: Joi.number(),
       limit: Joi.number(),
+      phone: Joi.string(),
       name: Joi.string(),
       projectId: Joi.string(),
       status: Joi.string(),
