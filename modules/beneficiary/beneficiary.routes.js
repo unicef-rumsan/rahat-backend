@@ -49,7 +49,8 @@ const routes = {
     [BENEFICIARY.READ, BENEFICIARY.ADMIN]
   ],
   getReportingData: ['GET', '/reports', 'get reporting data of beneficiray'],
-  addBankAccount: ['POST', '/{id}/bank-account', 'add bank account to beneficiary']
+  addBankAccount: ['POST', '/{id}/bank-account', 'add bank account to beneficiary'],
+  listAvailableWards: ['GET', '/wards', 'List Available Wards of beneficiary']
 };
 
 function register(app) {
