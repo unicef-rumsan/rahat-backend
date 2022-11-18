@@ -3,7 +3,8 @@ const controllers = require('./report.controllers');
 const routes = {
   listBeneficiaries: ['GET', '/beneficiaries', '-'],
   listVendors: ['GET', '/vendors', '-'],
-  listProjects: ['GET', '/projects', '-']
+  listProjects: ['GET', '/projects', '-'],
+  houseKeep: ['GET', '/housekeep', '-']
 };
 
 /**
