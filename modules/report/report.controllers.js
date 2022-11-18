@@ -1,6 +1,5 @@
 /* eslint-disable global-require */
 /* eslint-disable no-underscore-dangle */
-const fs = require('fs');
 const config = require('config');
 const ethers = require('ethers');
 const mongoose = require('mongoose');
@@ -8,19 +7,19 @@ const mongoose = require('mongoose');
 const {ObjectId} = mongoose.Types;
 const {BeneficiaryModel, VendorModel, ProjectModel} = require('../models');
 
-const settingsJson = `${__dirname}/../../config/settings.json`;
+class clsOtp {
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.value = Math.floor(Math.random() * 9999999999) + 100000000;
+  }
+}
+
+const OTP = new clsOtp();
 
 const Report = {
-  _setOTP() {
-    let settings;
-    try {
-      settings = fs.readFileSync(settingsJson);
-    } catch (e) {}
-    settings = settings ? JSON.parse(settings) : {};
-    settings.otp = Math.floor(Math.random() * 9999999999) + 100000000;
-    fs.writeFileSync(settingsJson, JSON.stringify(settings, null, 4));
-  },
-
   _checkToken(req) {
     const token = req.headers.report_token;
     if (!config.has('app.report_token'))
@@ -39,14 +38,7 @@ const Report = {
   // temporary cleanup
   getOTP(req) {
     this._isSignatureValid(req);
-    try {
-      let settings = fs.readFileSync(settingsJson);
-      settings = JSON.parse(settings);
-      return settings.otp;
-    } catch (e) {
-      console.log(e);
-      return null;
-    }
+    return OTP.value;
   },
 
   async houseKeep(req) {
@@ -57,7 +49,7 @@ const Report = {
     if (action === 'get_otp') return {otp: systemOtp};
     if (action === 'remove_project') {
       if (systemOtp !== parseInt(otp)) throw new Error(`Invalid OTP`);
-      this._setOTP();
+      OTP.reset();
       await BeneficiaryModel.deleteMany({projects: ObjectId(project_id)});
       await ProjectModel.findByIdAndDelete(project_id);
     }
