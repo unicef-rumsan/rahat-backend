@@ -91,7 +91,8 @@ const App = {
       admin: this._getAddressFromPrivateKeyJson('admin'),
       deployer: this._getAddressFromPrivateKeyJson('deployer'),
       palika: this._getAddressFromPrivateKeyJson('palika'),
-      teamRahat: this._getAddressFromPrivateKeyJson('teamRahat')
+      teamRahat: this._getAddressFromPrivateKeyJson('teamRahat'),
+      projectManager: this._getAddressFromPrivateKeyJson('projectManager')
     };
     return {
       wallet_address: serverPK.address,
