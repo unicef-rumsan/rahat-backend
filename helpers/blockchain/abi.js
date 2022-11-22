@@ -23,8 +23,7 @@ const getBytecode = contract => {
 };
 
 const getAbi = contract => {
-  const abiColl = getAbiCollection();
-  const {contractName, abi} = abiColl[contract];
+  const {contractName, abi} = require(`../../contracts/${contract}.json`);
   return {contractName, abi};
 };
 

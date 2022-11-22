@@ -1,3 +1,4 @@
+const ethers = require('ethers');
 const {getAbi, getBytecode} = require('./blockchain/abi');
 const {deployContract, getContract, getWalletFromPrivateKey} = require('./blockchain/contract');
 
@@ -6,9 +7,14 @@ const PalikaPK = require('../config/privateKeys/palika.json');
 const ServerPK = require('../config/privateKeys/server.json');
 const RahatTeamPK = require('../config/privateKeys/teamRahat.json');
 
+const adminAccount = AdminPK.address;
+
+function keccak256(text) {
+  return ethers.utils.keccak256(ethers.utils.toUtf8Bytes(text));
+}
+
 module.exports = {
   async setup(tokenName, tokenSymbol, initialSupply, triggerConfirmation, cb) {
-    const adminAccount = AdminPK.address;
     console.log('+++++++Deploying contracts+++++++');
     const {abi: erc20Abi} = getAbi('RahatERC20');
     const {bytecode: erc20Bytecode} = getBytecode('RahatERC20');
@@ -65,7 +71,7 @@ module.exports = {
       const rahatContract = getContract('Rahat', rahat, AdminWallet);
       const rahatTriggerContract = getContract('Rahat', rahat_trigger, AdminWallet);
 
-      await rahatContract.addAdmin(PalikaPK.address);
+      await rahatContract.addPalika(PalikaPK.address);
       await rahatContract.addServer(ServerPK.address);
       await rahatContract.addAdmin(RahatTeamPK.address);
       await rahatTriggerContract.addAdmin(PalikaPK.address);
@@ -76,6 +82,16 @@ module.exports = {
       return {rahat_erc20, rahat_erc1155, rahat, rahat_admin, rahat_trigger};
     } catch (e) {
       throw Error(`ERROR:${e}`);
+    }
+  },
+
+  async approveVendors(rahatAddress, vendors, cb) {
+    const AdminWallet = getWalletFromPrivateKey(AdminPK.privateKey);
+    const rahatContract = getContract('Rahat', rahatAddress, AdminWallet);
+    for (const vendor of vendors) {
+      await rahatContract.grantRole(keccak256('VENDOR'), vendor);
+      console.log(await rahatContract.isVendor(vendor));
+      if (cb) cb(`Vendor approved:${vendor}`);
     }
   }
 };

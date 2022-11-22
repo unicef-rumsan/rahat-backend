@@ -38,23 +38,20 @@ const Report = {
     const systemOtp = this.getOTP(req);
     if (action === 'get_otp') return {otp: systemOtp};
 
-    if (systemOtp !== parseInt(otp)) return {message: 'Error: Invalid OTP'};
+    // if (systemOtp !== parseInt(otp)) return {message: 'Error: Invalid OTP'};
     memData.resetOtp();
     if (action === 'remove_project') {
       await BeneficiaryModel.deleteMany({projects: ObjectId(project_id)});
       await ProjectModel.findByIdAndDelete(project_id);
     }
     if (action === 'reset_contracts') return this.resetContracts();
+    if (action === 'approve_vendors') return this.approveVendors(project_id);
     return {success: true};
   },
 
   async resetContracts() {
-    const contracts = await ContractSetup.setup(
-      'UNICEF-NP',
-      'UNP',
-      10000000000,
-      2,
-      () => memData.updateContractStatus
+    const contracts = await ContractSetup.setup('UNICEF-NP', 'UNP', 10000000000, 2, s =>
+      memData.updateContractStatus(s)
     );
 
     const agencies = await AgencyModel.find({});
@@ -70,6 +67,22 @@ const Report = {
 
     memData.updateContractStatus('done');
     return contracts;
+  },
+
+  async approveVendors(project_id) {
+    const project = await ProjectModel.findById(project_id);
+    if (!project) return {message: 'Error: Project does not exist'};
+    const agencies = await AgencyModel.find({});
+    if (agencies.length < 1) return {message: 'Error: Agency does not exist'};
+
+    await VendorModel.updateMany({}, {projects: [project_id]});
+
+    let vendors = await VendorModel.find({});
+    vendors = vendors.map(v => v.wallet_address);
+    await ContractSetup.approveVendors(agencies[0].contracts.rahat, vendors, s =>
+      memData.updateContractStatus(s)
+    );
+    return vendors;
   },
 
   // reports
