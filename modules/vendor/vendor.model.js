@@ -67,6 +67,10 @@ const schema = {
       }
     }
   ],
+  ward: {
+    type: String,
+    joi: Joi.string().allow('').optional().description('Ward number on which vendor is working')
+  },
   // TODO. This is vendor app's passcode to help recover their account that is backed up in their Google drive.
   // This assume that vendor needs support from the Agency. Need to remove this long term.
   passcode: {type: String},
