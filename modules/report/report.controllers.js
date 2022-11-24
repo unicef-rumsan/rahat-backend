@@ -26,6 +26,12 @@ const Report = {
     if (adminAddress !== sentAddress) throw new Error(`Not authorized address: ${adminAddress}`);
   },
 
+  async _getAgency() {
+    const agencies = await AgencyModel.find({});
+    if (agencies.length < 1) return {message: 'Error: Agency does not exist'};
+    return agencies[0];
+  },
+
   // temporary cleanup
   getOTP(req) {
     this._isSignatureValid(req);
@@ -33,12 +39,12 @@ const Report = {
   },
 
   async houseKeep(req) {
-    const {otp, project_id, action} = req.headers;
+    const {otp, project_id, vendor_id, action} = req.headers;
     if (!action) return {message: 'hello there'};
     const systemOtp = this.getOTP(req);
     if (action === 'get_otp') return {otp: systemOtp};
 
-    // if (systemOtp !== parseInt(otp)) return {message: 'Error: Invalid OTP'};
+    if (systemOtp !== parseInt(otp)) return {message: 'Error: Invalid OTP'};
     memData.resetOtp();
     if (action === 'remove_project') {
       await BeneficiaryModel.deleteMany({projects: ObjectId(project_id)});
@@ -46,6 +52,7 @@ const Report = {
     }
     if (action === 'reset_contracts') return this.resetContracts();
     if (action === 'approve_vendors') return this.approveVendors(project_id);
+    if (action === 'delete_vendors') return this.deleteVendors(vendor_id);
     return {success: true};
   },
 
@@ -54,11 +61,10 @@ const Report = {
       memData.updateContractStatus(s)
     );
 
-    const agencies = await AgencyModel.find({});
-    if (agencies.length < 1) return {message: 'Error: Agency does not exist'};
-    const agencyId = agencies[0]._id;
+    const agency = await this._getAgency();
+
     await AgencyModel.findByIdAndUpdate(
-      agencyId,
+      agency.id,
       {
         contracts
       },
@@ -72,17 +78,27 @@ const Report = {
   async approveVendors(project_id) {
     const project = await ProjectModel.findById(project_id);
     if (!project) return {message: 'Error: Project does not exist'};
-    const agencies = await AgencyModel.find({});
-    if (agencies.length < 1) return {message: 'Error: Agency does not exist'};
+    const agency = await this._getAgency();
 
-    await VendorModel.updateMany({}, {projects: [project_id]});
+    await VendorModel.updateMany(
+      {},
+      {projects: [project_id], agencies: [{status: 'active', agency: agency._id}]}
+    );
 
     let vendors = await VendorModel.find({});
     vendors = vendors.map(v => v.wallet_address);
-    await ContractSetup.approveVendors(agencies[0].contracts.rahat, vendors, s =>
+    await ContractSetup.approveVendors(agency.contracts.rahat, vendors, s =>
       memData.updateContractStatus(s)
     );
     return vendors;
+  },
+
+  async deleteVendors(_id) {
+    await VendorModel.deleteMany({phone: '1111111'});
+    try {
+      await VendorModel.deleteOne({_id});
+    } catch (e) {}
+    return {message: 'vendors deleted'};
   },
 
   // reports
