@@ -31,6 +31,16 @@ function wsWeb3Contract(contractName, contractAddress) {
   const wsInstance = new wsWeb3.eth.Contract(contract.abi, contractAddress);
   return wsInstance;
 }
+
+function getWalletFromPrivateKey(privateKey) {
+  return new ethers.Wallet(privateKey, provider);
+}
+
+const getContract = (contractName, contractAddress, wallet) => {
+  const {abi} = getAbi(contractName);
+  return new ethers.Contract(contractAddress, abi, wallet);
+};
+
 async function deployContract(abi, bytecode, args) {
   const {privateKey} = require('../../config/privateKeys/deployer.json');
   const signer = new ethers.Wallet(privateKey, provider);
@@ -42,6 +52,8 @@ async function deployContract(abi, bytecode, args) {
 }
 
 module.exports = {
+  getWalletFromPrivateKey,
+  getContract,
   ethersContract,
   web3Contract,
   wsWeb3Contract,

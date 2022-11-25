@@ -23,8 +23,12 @@ const getBytecode = contract => {
 };
 
 const getAbi = contract => {
-  const abiColl = getAbiCollection();
-  const {contractName, abi} = abiColl[contract];
+  if (contract === 'rahat') contract = 'Rahat';
+  if (contract === 'rahat_erc20') contract = 'RahatERC20';
+  if (contract === 'rahat_erc1155') contract = 'RahatERC1155';
+  if (contract === 'rahat_admin') contract = 'RahatAdmin';
+  if (contract === 'rahat_trigger') contract = 'RahatTriggerResponse';
+  const {contractName, abi} = require(`../../contracts/${contract}.json`);
   return {contractName, abi};
 };
 
