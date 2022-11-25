@@ -98,7 +98,7 @@ const Report = {
     try {
       await VendorModel.deleteOne({_id});
     } catch (e) {}
-    return {message: 'vendors deleted'};
+    return {message: 'Vendors deleted'};
   },
 
   // reports
