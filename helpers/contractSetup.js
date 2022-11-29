@@ -1,7 +1,9 @@
 const ethers = require('ethers');
-const {getAbi, getBytecode} = require('./blockchain/abi');
+const {getBytecode} = require('./blockchain/abi');
 const {deployContract, getContract, getWalletFromPrivateKey} = require('./blockchain/contract');
 
+const DeployerPK = require('../config/privateKeys/deployer.json');
+const DonorPK = require('../config/privateKeys/donor.json');
 const AdminPK = require('../config/privateKeys/admin.json');
 const PalikaPK = require('../config/privateKeys/palika.json');
 const ServerPK = require('../config/privateKeys/server.json');
@@ -16,31 +18,39 @@ function keccak256(text) {
 module.exports = {
   async setup(tokenName, tokenSymbol, initialSupply, triggerConfirmation, cb) {
     console.log('+++++++Deploying contracts+++++++');
-    const {abi: erc20Abi} = getAbi('RahatERC20');
-    const {bytecode: erc20Bytecode} = getBytecode('RahatERC20');
-    const {abi: erc1155Abi} = getAbi('RahatERC1155');
-    const {bytecode: erc1155Bytecode} = getBytecode('RahatERC1155');
-    const {abi: rahatAbi} = getAbi('Rahat');
-    const {bytecode: rahatBytecode} = getBytecode('Rahat');
-    const {abi: rahatAdminAbi} = getAbi('RahatAdmin');
-    const {bytecode: rahatAdminBytecode} = getBytecode('RahatAdmin');
-    const {abi: RahatTriggerResponseAbi} = getAbi('RahatTriggerResponse');
-    const {bytecode: rahatTriggerResponseBytecode} = getBytecode('RahatTriggerResponse');
+    const {abi: donorAbi, bytecode: donorBytecode} = getBytecode('RahatDonor');
+    const {abi: registryAbi, bytecode: registryBytecode} = getBytecode('RahatRegistry');
+    const {abi: erc20Abi, bytecode: erc20Bytecode} = getBytecode('RahatERC20');
+    const {abi: erc1155Abi, bytecode: erc1155Bytecode} = getBytecode('RahatERC1155');
+    const {abi: rahatAbi, bytecode: rahatBytecode} = getBytecode('Rahat');
+    const {abi: rahatAdminAbi, bytecode: rahatAdminBytecode} = getBytecode('RahatAdmin');
+    const {abi: RahatTriggerResponseAbi, bytecode: rahatTriggerResponseBytecode} = getBytecode(
+      'RahatTriggerResponse'
+    );
 
     try {
-      if (cb) cb('1/5 : Deploying RahatERC20');
+      if (cb) cb('1/7 : Deploying RahatDonor');
+      const rahat_donor = await deployContract(donorAbi, donorBytecode, [DonorPK.address]);
+      console.log({rahat_donor});
+
+      if (cb) cb('2/7 : Deploying RahatRegistry');
+      const rahat_registry = await deployContract(registryAbi, registryBytecode, [adminAccount]);
+      console.log({rahat_registry});
+
+      if (cb) cb('3/7 : Deploying RahatERC20');
       const rahat_erc20 = await deployContract(erc20Abi, erc20Bytecode, [
         tokenName,
         tokenSymbol,
-        adminAccount
+        adminAccount,
+        0
       ]);
       console.log({rahat_erc20});
 
-      if (cb) cb('2/5 : Deploying RahatERC1155');
+      if (cb) cb('4/7 : Deploying RahatERC1155');
       const rahat_erc1155 = await deployContract(erc1155Abi, erc1155Bytecode, [adminAccount]);
       console.log({rahat_erc1155});
 
-      if (cb) cb('3/5 : Deploying TriggerResponse');
+      if (cb) cb('5/7 : Deploying TriggerResponse');
       const rahat_trigger = await deployContract(
         RahatTriggerResponseAbi,
         rahatTriggerResponseBytecode,
@@ -48,49 +58,61 @@ module.exports = {
       );
       console.log({rahat_trigger});
 
-      if (cb) cb('4/5 : Deploying Rahat');
+      if (cb) cb('6/7 : Deploying Rahat');
       const rahat = await deployContract(rahatAbi, rahatBytecode, [
         rahat_erc20,
+        rahat_registry,
         rahat_trigger,
-        adminAccount
+        PalikaPK.address
       ]);
       console.log({rahat});
 
-      if (cb) cb('5/5 : Deploying RahatAdmin');
+      if (cb) cb('7/7 : Deploying RahatAdmin');
       const rahat_admin = await deployContract(rahatAdminAbi, rahatAdminBytecode, [
         rahat_erc20,
         rahat,
-        initialSupply,
         adminAccount
       ]);
       console.log({rahat_admin});
 
-      if (cb) cb('Addmin admin accounts');
+      if (cb) cb('Add admin accounts');
 
       const AdminWallet = getWalletFromPrivateKey(AdminPK.privateKey);
-      const rahatContract = getContract('Rahat', rahat, AdminWallet);
+      const PalikaWallet = getWalletFromPrivateKey(PalikaPK.privateKey);
+
+      const rahatERC20Contract = getContract('RahatERC20', rahat_erc20, AdminWallet);
+      const rahatRegistryContract = getContract('RahatRegistry', rahat_registry, AdminWallet);
+      const rahatContract = getContract('Rahat', rahat, PalikaWallet);
       const rahatTriggerContract = getContract('Rahat', rahat_trigger, AdminWallet);
 
-      await rahatContract.addPalika(PalikaPK.address);
-      await rahatContract.addServer(ServerPK.address);
-      await rahatContract.addAdmin(RahatTeamPK.address);
+      await rahatERC20Contract.addOwner(rahat_admin);
+      await rahatRegistryContract.addOwner(rahat);
       await rahatTriggerContract.addAdmin(PalikaPK.address);
       await rahatTriggerContract.addAdmin(RahatTeamPK.address);
+      await rahatContract.addAdmin(RahatTeamPK.address);
+      await rahatContract.addServer(ServerPK.address);
 
       if (cb) cb('Deployment Completed');
 
-      return {rahat_erc20, rahat_erc1155, rahat, rahat_admin, rahat_trigger};
+      return {
+        rahat_donor,
+        rahat_registry,
+        rahat_erc20,
+        rahat_erc1155,
+        rahat,
+        rahat_admin,
+        rahat_trigger
+      };
     } catch (e) {
       throw Error(`ERROR:${e}`);
     }
   },
 
   async approveVendors(rahatAddress, vendors, cb) {
-    const AdminWallet = getWalletFromPrivateKey(AdminPK.privateKey);
-    const rahatContract = getContract('Rahat', rahatAddress, AdminWallet);
+    const PalikaWallet = getWalletFromPrivateKey(PalikaPK.privateKey);
+    const rahatContract = getContract('Rahat', rahatAddress, PalikaWallet);
     for (const vendor of vendors) {
-      await rahatContract.grantRole(keccak256('VENDOR'), vendor);
-      console.log(await rahatContract.isVendor(vendor));
+      await rahatContract.addVendor(vendor);
       if (cb) cb(`Vendor approved:${vendor}`);
     }
   }

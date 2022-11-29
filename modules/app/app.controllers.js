@@ -1,7 +1,13 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable no-underscore-dangle */
 const fs = require('fs');
 const ethers = require('ethers');
 const config = require('config');
 const axios = require('axios');
+
+const network = config.get('blockchain.httpProvider');
+const provider = new ethers.providers.JsonRpcProvider(network);
 
 const packageJson = require('../../package.json');
 const {Agency} = require('../agency/agency.controllers');
@@ -18,6 +24,15 @@ const {getAbi, getBytecode} = require('../../helpers/blockchain/abi');
 const {User, getByWalletAddress} = require('../user/user.controllers');
 const {Role} = require('../user/role.controllers');
 const {deployContract} = require('../../helpers/blockchain/contract');
+
+const _getAddressFromPrivateKeyJson = jsonFileName => {
+  try {
+    const json = require(`../../config/privateKeys/${jsonFileName}.json`);
+    return json.address;
+  } catch (e) {
+    return null;
+  }
+};
 
 const App = {
   async setupWallet() {
@@ -73,26 +88,18 @@ const App = {
     }
   },
 
-  _getAddressFromPrivateKeyJson(jsonFileName) {
-    try {
-      const json = require(`../../config/privateKeys/${jsonFileName}.json`);
-      return json.address;
-    } catch (e) {
-      return null;
-    }
-  },
-
   async listSettings(req, h) {
     const agency = await Agency.getFirst();
     if (!agency) return h.response({isSetup: false}).code(404);
     const addresses = {
       server: serverPK.address,
       redeeem: serverPK.address,
-      admin: this._getAddressFromPrivateKeyJson('admin'),
-      deployer: this._getAddressFromPrivateKeyJson('deployer'),
-      palika: this._getAddressFromPrivateKeyJson('palika'),
-      teamRahat: this._getAddressFromPrivateKeyJson('teamRahat')
-      // projectManager: this._getAddressFromPrivateKeyJson('projectManager')
+      donor: _getAddressFromPrivateKeyJson('donor'),
+      admin: _getAddressFromPrivateKeyJson('admin'),
+      deployer: _getAddressFromPrivateKeyJson('deployer'),
+      palika: _getAddressFromPrivateKeyJson('palika'),
+      teamRahat: _getAddressFromPrivateKeyJson('teamRahat')
+      // projectManager: _getAddressFromPrivateKeyJson('projectManager')
     };
     return {
       wallet_address: serverPK.address,
@@ -170,6 +177,27 @@ const App = {
       throw Error(`ERROR:${e}`);
     }
   },
+
+  async getWalletBalance() {
+    const server = ethers.utils.formatEther(await provider.getBalance(serverPK.address));
+    const donor = ethers.utils.formatEther(
+      await provider.getBalance(_getAddressFromPrivateKeyJson('donor'))
+    );
+    const admin = ethers.utils.formatEther(
+      await provider.getBalance(_getAddressFromPrivateKeyJson('admin'))
+    );
+    const deployer = ethers.utils.formatEther(
+      await provider.getBalance(_getAddressFromPrivateKeyJson('deployer'))
+    );
+    const palika = ethers.utils.formatEther(
+      await provider.getBalance(_getAddressFromPrivateKeyJson('palika'))
+    );
+    const teamRahat = ethers.utils.formatEther(
+      await provider.getBalance(_getAddressFromPrivateKeyJson('teamRahat'))
+    );
+    return {admin, deployer, donor, palika, server, teamRahat};
+  },
+
   async getDashboardData(currentUser) {
     const projectCount = await Project.countProject(currentUser);
     const vendorCount = await Vendor.countVendor(currentUser);
@@ -254,5 +282,6 @@ module.exports = {
   setKobotoolbox: req => App.setKobotoolbox(req.payload),
   getKoboForms: req => App.getKoboForms(req.currentUser),
   getKoboFormsData: req => App.getKoboFormsData(req.currentUser, req.params.assetId),
-  setDefaultProject: req => App.setDefaultProject(req.payload)
+  setDefaultProject: req => App.setDefaultProject(req.payload),
+  getWalletBalance: App.getWalletBalance
 };

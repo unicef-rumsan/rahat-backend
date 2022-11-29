@@ -8,6 +8,11 @@ const routes = {
     path: '/settings',
     description: 'List all the application settings'
   },
+  getWalletBalance: {
+    method: 'GET',
+    path: '/ethbalance',
+    description: 'Get Eth balance'
+  },
   listAdmins: {
     method: 'GET',
     path: '/admins',

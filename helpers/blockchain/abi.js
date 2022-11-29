@@ -16,19 +16,24 @@ const getAbiCollection = () => {
   return artifact;
 };
 
-const getBytecode = contract => {
-  const abiColl = getAbiCollection();
-  const {contractName, abi, bytecode} = abiColl[contract];
-  return {contractName, abi, bytecode};
-};
-
-const getAbi = contract => {
+const getContractJson = contract => {
   if (contract === 'rahat') contract = 'Rahat';
+  if (contract === 'rahat_donor') contract = 'RahatDonor';
+  if (contract === 'rahat_registry') contract = 'RahatRegistry';
   if (contract === 'rahat_erc20') contract = 'RahatERC20';
   if (contract === 'rahat_erc1155') contract = 'RahatERC1155';
   if (contract === 'rahat_admin') contract = 'RahatAdmin';
   if (contract === 'rahat_trigger') contract = 'RahatTriggerResponse';
-  const {contractName, abi} = require(`../../contracts/${contract}.json`);
+  return require(`../../contracts/${contract}.json`);
+};
+
+const getBytecode = contract => {
+  const {contractName, abi, bytecode} = getContractJson(contract);
+  return {contractName, abi, bytecode};
+};
+
+const getAbi = contract => {
+  const {contractName, abi} = getContractJson(contract);
   return {contractName, abi};
 };
 
