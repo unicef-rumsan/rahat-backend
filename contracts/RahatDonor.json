@@ -6447,10 +6447,10 @@
     "absolutePath": "project:/src/contracts/RahatDonor.sol",
     "exportedSymbols": {
       "AbstractERC20Func": [
-        7237
+        7305
       ],
       "AbstractOwner": [
-        7328
+        7396
       ],
       "Arrays": [
         3278
@@ -6480,27 +6480,27 @@
         2896
       ],
       "IOwner": [
-        7134
+        7202
       ],
       "IRahatERC20": [
-        7143
+        7211
       ],
       "Math": [
         4146
       ],
       "RahatDonor": [
-        6419
+        6487
       ],
       "RahatERC20": [
-        6764
+        6832
       ]
     },
-    "id": 6420,
+    "id": 6488,
     "license": "LGPL-3.0",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6279,
+        "id": 6347,
         "literals": [
           "solidity",
           "^",
@@ -6513,11 +6513,11 @@
       {
         "absolutePath": "project:/src/contracts/RahatERC20.sol",
         "file": "./RahatERC20.sol",
-        "id": 6280,
+        "id": 6348,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 6420,
-        "sourceUnit": 6765,
+        "scope": 6488,
+        "sourceUnit": 6833,
         "src": "67:26:26",
         "symbolAliases": [],
         "unitAlias": ""
@@ -6525,11 +6525,11 @@
       {
         "absolutePath": "project:/src/libraries/AbstractERC20Func.sol",
         "file": "../libraries/AbstractERC20Func.sol",
-        "id": 6281,
+        "id": 6349,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 6420,
-        "sourceUnit": 7238,
+        "scope": 6488,
+        "sourceUnit": 7306,
         "src": "95:44:26",
         "symbolAliases": [],
         "unitAlias": ""
@@ -6537,10 +6537,10 @@
       {
         "absolutePath": "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
         "file": "@openzeppelin/contracts/utils/structs/EnumerableSet.sol",
-        "id": 6282,
+        "id": 6350,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 6420,
+        "scope": 6488,
         "sourceUnit": 4746,
         "src": "143:65:26",
         "symbolAliases": [],
@@ -6551,38 +6551,38 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 6284,
+              "id": 6352,
               "name": "AbstractERC20Func",
               "nameLocations": [
                 "450:17:26"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 7237,
+              "referencedDeclaration": 7305,
               "src": "450:17:26"
             },
-            "id": 6285,
+            "id": 6353,
             "nodeType": "InheritanceSpecifier",
             "src": "450:17:26"
           }
         ],
         "canonicalName": "RahatDonor",
         "contractDependencies": [
-          6764
+          6832
         ],
         "contractKind": "contract",
         "documentation": {
-          "id": 6283,
+          "id": 6351,
           "nodeType": "StructuredDocumentation",
           "src": "212:215:26",
           "text": "@title Donor contract to create tokens\n @author Rumsan Associates\n @notice You can use this contract to manage Rahat tokens and projects\n @dev All function calls are only executed by contract owner"
         },
         "fullyImplemented": true,
-        "id": 6419,
+        "id": 6487,
         "linearizedBaseContracts": [
-          6419,
-          7237,
-          7328,
-          7134
+          6487,
+          7305,
+          7396,
+          7202
         ],
         "name": "RahatDonor",
         "nameLocation": "436:10:26",
@@ -6590,9 +6590,9 @@
         "nodes": [
           {
             "global": false,
-            "id": 6289,
+            "id": 6357,
             "libraryName": {
-              "id": 6286,
+              "id": 6354,
               "name": "EnumerableSet",
               "nameLocations": [
                 "479:13:26"
@@ -6604,10 +6604,10 @@
             "nodeType": "UsingForDirective",
             "src": "473:49:26",
             "typeName": {
-              "id": 6288,
+              "id": 6356,
               "nodeType": "UserDefinedTypeName",
               "pathNode": {
-                "id": 6287,
+                "id": 6355,
                 "name": "EnumerableSet.AddressSet",
                 "nameLocations": [
                   "497:13:26",
@@ -6628,23 +6628,23 @@
           {
             "anonymous": false,
             "eventSelector": "2e2b3f61b70d2d131b2a807371103cc98d51adcaa5e9a8f9c32658ad8426e74e",
-            "id": 6293,
+            "id": 6361,
             "name": "TokenCreated",
             "nameLocation": "534:12:26",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 6292,
+              "id": 6360,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6291,
+                  "id": 6359,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "tokenAddress",
                   "nameLocation": "569:12:26",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6293,
+                  "scope": 6361,
                   "src": "553:28:26",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -6653,7 +6653,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6290,
+                    "id": 6358,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "553:7:26",
@@ -6672,12 +6672,12 @@
           },
           {
             "constant": false,
-            "id": 6296,
+            "id": 6364,
             "mutability": "mutable",
             "name": "tokens",
             "nameLocation": "626:6:26",
             "nodeType": "VariableDeclaration",
-            "scope": 6419,
+            "scope": 6487,
             "src": "593:39:26",
             "stateVariable": true,
             "storageLocation": "default",
@@ -6686,10 +6686,10 @@
               "typeString": "struct EnumerableSet.AddressSet"
             },
             "typeName": {
-              "id": 6295,
+              "id": 6363,
               "nodeType": "UserDefinedTypeName",
               "pathNode": {
-                "id": 6294,
+                "id": 6362,
                 "name": "EnumerableSet.AddressSet",
                 "nameLocations": [
                   "593:13:26",
@@ -6710,37 +6710,37 @@
           },
           {
             "body": {
-              "id": 6308,
+              "id": 6376,
               "nodeType": "Block",
               "src": "820:33:26",
               "statements": [
                 {
                   "expression": {
-                    "id": 6306,
+                    "id": 6374,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 6302,
+                        "id": 6370,
                         "name": "owner",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 7254,
+                        "referencedDeclaration": 7322,
                         "src": "827:5:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 6304,
+                      "id": 6372,
                       "indexExpression": {
-                        "id": 6303,
+                        "id": 6371,
                         "name": "_admin",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6299,
+                        "referencedDeclaration": 6367,
                         "src": "833:6:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -6762,7 +6762,7 @@
                     "operator": "=",
                     "rightHandSide": {
                       "hexValue": "74727565",
-                      "id": 6305,
+                      "id": 6373,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -6782,19 +6782,19 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 6307,
+                  "id": 6375,
                   "nodeType": "ExpressionStatement",
                   "src": "827:20:26"
                 }
               ]
             },
             "documentation": {
-              "id": 6297,
+              "id": 6365,
               "nodeType": "StructuredDocumentation",
               "src": "639:139:26",
               "text": "@notice All the supply is allocated to this contract\n @dev deploys AidToken and Rahat contract by sending supply to this contract"
             },
-            "id": 6309,
+            "id": 6377,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -6802,17 +6802,17 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6300,
+              "id": 6368,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6299,
+                  "id": 6367,
                   "mutability": "mutable",
                   "name": "_admin",
                   "nameLocation": "808:6:26",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6309,
+                  "scope": 6377,
                   "src": "800:14:26",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -6821,7 +6821,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6298,
+                    "id": 6366,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "800:7:26",
@@ -6837,12 +6837,12 @@
               "src": "793:26:26"
             },
             "returnParameters": {
-              "id": 6301,
+              "id": 6369,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "820:0:26"
             },
-            "scope": 6419,
+            "scope": 6487,
             "src": "782:71:26",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -6850,62 +6850,62 @@
           },
           {
             "body": {
-              "id": 6368,
+              "id": 6436,
               "nodeType": "Block",
               "src": "1019:274:26",
               "statements": [
                 {
                   "assignments": [
-                    6326
+                    6394
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 6326,
+                      "id": 6394,
                       "mutability": "mutable",
                       "name": "_token",
                       "nameLocation": "1037:6:26",
                       "nodeType": "VariableDeclaration",
-                      "scope": 6368,
+                      "scope": 6436,
                       "src": "1026:17:26",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_RahatERC20_$6764",
+                        "typeIdentifier": "t_contract$_RahatERC20_$6832",
                         "typeString": "contract RahatERC20"
                       },
                       "typeName": {
-                        "id": 6325,
+                        "id": 6393,
                         "nodeType": "UserDefinedTypeName",
                         "pathNode": {
-                          "id": 6324,
+                          "id": 6392,
                           "name": "RahatERC20",
                           "nameLocations": [
                             "1026:10:26"
                           ],
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 6764,
+                          "referencedDeclaration": 6832,
                           "src": "1026:10:26"
                         },
-                        "referencedDeclaration": 6764,
+                        "referencedDeclaration": 6832,
                         "src": "1026:10:26",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_RahatERC20_$6764",
+                          "typeIdentifier": "t_contract$_RahatERC20_$6832",
                           "typeString": "contract RahatERC20"
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
-                  "id": 6338,
+                  "id": 6406,
                   "initialValue": {
                     "arguments": [
                       {
-                        "id": 6330,
+                        "id": 6398,
                         "name": "_name",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6311,
+                        "referencedDeclaration": 6379,
                         "src": "1061:5:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_memory_ptr",
@@ -6913,11 +6913,11 @@
                         }
                       },
                       {
-                        "id": 6331,
+                        "id": 6399,
                         "name": "_symbol",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6313,
+                        "referencedDeclaration": 6381,
                         "src": "1068:7:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_memory_ptr",
@@ -6927,14 +6927,14 @@
                       {
                         "arguments": [
                           {
-                            "id": 6334,
+                            "id": 6402,
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 4294967268,
                             "src": "1085:4:26",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_RahatDonor_$6419",
+                              "typeIdentifier": "t_contract$_RahatDonor_$6487",
                               "typeString": "contract RahatDonor"
                             }
                           }
@@ -6942,11 +6942,11 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_RahatDonor_$6419",
+                              "typeIdentifier": "t_contract$_RahatDonor_$6487",
                               "typeString": "contract RahatDonor"
                             }
                           ],
-                          "id": 6333,
+                          "id": 6401,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -6958,14 +6958,14 @@
                             "typeString": "type(address)"
                           },
                           "typeName": {
-                            "id": 6332,
+                            "id": 6400,
                             "name": "address",
                             "nodeType": "ElementaryTypeName",
                             "src": "1077:7:26",
                             "typeDescriptions": {}
                           }
                         },
-                        "id": 6335,
+                        "id": 6403,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -6982,11 +6982,11 @@
                         }
                       },
                       {
-                        "id": 6336,
+                        "id": 6404,
                         "name": "decimals",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6317,
+                        "referencedDeclaration": 6385,
                         "src": "1092:8:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint8",
@@ -7013,7 +7013,7 @@
                           "typeString": "uint8"
                         }
                       ],
-                      "id": 6329,
+                      "id": 6397,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -7021,31 +7021,31 @@
                       "nodeType": "NewExpression",
                       "src": "1046:14:26",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_creation_nonpayable$_t_string_memory_ptr_$_t_string_memory_ptr_$_t_address_$_t_uint8_$returns$_t_contract$_RahatERC20_$6764_$",
+                        "typeIdentifier": "t_function_creation_nonpayable$_t_string_memory_ptr_$_t_string_memory_ptr_$_t_address_$_t_uint8_$returns$_t_contract$_RahatERC20_$6832_$",
                         "typeString": "function (string memory,string memory,address,uint8) returns (contract RahatERC20)"
                       },
                       "typeName": {
-                        "id": 6328,
+                        "id": 6396,
                         "nodeType": "UserDefinedTypeName",
                         "pathNode": {
-                          "id": 6327,
+                          "id": 6395,
                           "name": "RahatERC20",
                           "nameLocations": [
                             "1050:10:26"
                           ],
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 6764,
+                          "referencedDeclaration": 6832,
                           "src": "1050:10:26"
                         },
-                        "referencedDeclaration": 6764,
+                        "referencedDeclaration": 6832,
                         "src": "1050:10:26",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_RahatERC20_$6764",
+                          "typeIdentifier": "t_contract$_RahatERC20_$6832",
                           "typeString": "contract RahatERC20"
                         }
                       }
                     },
-                    "id": 6337,
+                    "id": 6405,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -7057,7 +7057,7 @@
                     "src": "1046:55:26",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_RahatERC20_$6764",
+                      "typeIdentifier": "t_contract$_RahatERC20_$6832",
                       "typeString": "contract RahatERC20"
                     }
                   },
@@ -7070,14 +7070,14 @@
                       {
                         "arguments": [
                           {
-                            "id": 6344,
+                            "id": 6412,
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 4294967268,
                             "src": "1128:4:26",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_RahatDonor_$6419",
+                              "typeIdentifier": "t_contract$_RahatDonor_$6487",
                               "typeString": "contract RahatDonor"
                             }
                           }
@@ -7085,11 +7085,11 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_RahatDonor_$6419",
+                              "typeIdentifier": "t_contract$_RahatDonor_$6487",
                               "typeString": "contract RahatDonor"
                             }
                           ],
-                          "id": 6343,
+                          "id": 6411,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -7101,14 +7101,14 @@
                             "typeString": "type(address)"
                           },
                           "typeName": {
-                            "id": 6342,
+                            "id": 6410,
                             "name": "address",
                             "nodeType": "ElementaryTypeName",
                             "src": "1120:7:26",
                             "typeDescriptions": {}
                           }
                         },
-                        "id": 6345,
+                        "id": 6413,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -7125,11 +7125,11 @@
                         }
                       },
                       {
-                        "id": 6346,
+                        "id": 6414,
                         "name": "_supply",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6315,
+                        "referencedDeclaration": 6383,
                         "src": "1135:7:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -7149,18 +7149,18 @@
                         }
                       ],
                       "expression": {
-                        "id": 6339,
+                        "id": 6407,
                         "name": "_token",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6326,
+                        "referencedDeclaration": 6394,
                         "src": "1108:6:26",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_RahatERC20_$6764",
+                          "typeIdentifier": "t_contract$_RahatERC20_$6832",
                           "typeString": "contract RahatERC20"
                         }
                       },
-                      "id": 6341,
+                      "id": 6409,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -7168,14 +7168,14 @@
                       "memberLocation": "1115:4:26",
                       "memberName": "mint",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 6742,
+                      "referencedDeclaration": 6810,
                       "src": "1108:11:26",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_uint256_$",
                         "typeString": "function (address,uint256) external returns (uint256)"
                       }
                     },
-                    "id": 6347,
+                    "id": 6415,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -7191,23 +7191,23 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 6348,
+                  "id": 6416,
                   "nodeType": "ExpressionStatement",
                   "src": "1108:35:26"
                 },
                 {
                   "assignments": [
-                    6350
+                    6418
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 6350,
+                      "id": 6418,
                       "mutability": "mutable",
                       "name": "_tokenAddress",
                       "nameLocation": "1158:13:26",
                       "nodeType": "VariableDeclaration",
-                      "scope": 6368,
+                      "scope": 6436,
                       "src": "1150:21:26",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -7216,7 +7216,7 @@
                         "typeString": "address"
                       },
                       "typeName": {
-                        "id": 6349,
+                        "id": 6417,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
                         "src": "1150:7:26",
@@ -7229,18 +7229,18 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 6355,
+                  "id": 6423,
                   "initialValue": {
                     "arguments": [
                       {
-                        "id": 6353,
+                        "id": 6421,
                         "name": "_token",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6326,
+                        "referencedDeclaration": 6394,
                         "src": "1182:6:26",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_RahatERC20_$6764",
+                          "typeIdentifier": "t_contract$_RahatERC20_$6832",
                           "typeString": "contract RahatERC20"
                         }
                       }
@@ -7248,11 +7248,11 @@
                     "expression": {
                       "argumentTypes": [
                         {
-                          "typeIdentifier": "t_contract$_RahatERC20_$6764",
+                          "typeIdentifier": "t_contract$_RahatERC20_$6832",
                           "typeString": "contract RahatERC20"
                         }
                       ],
-                      "id": 6352,
+                      "id": 6420,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -7264,14 +7264,14 @@
                         "typeString": "type(address)"
                       },
                       "typeName": {
-                        "id": 6351,
+                        "id": 6419,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
                         "src": "1174:7:26",
                         "typeDescriptions": {}
                       }
                     },
-                    "id": 6354,
+                    "id": 6422,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -7294,11 +7294,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 6359,
+                        "id": 6427,
                         "name": "_tokenAddress",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6350,
+                        "referencedDeclaration": 6418,
                         "src": "1207:13:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -7314,18 +7314,18 @@
                         }
                       ],
                       "expression": {
-                        "id": 6356,
+                        "id": 6424,
                         "name": "tokens",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6296,
+                        "referencedDeclaration": 6364,
                         "src": "1196:6:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_AddressSet_$4458_storage",
                           "typeString": "struct EnumerableSet.AddressSet storage ref"
                         }
                       },
-                      "id": 6358,
+                      "id": 6426,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -7340,7 +7340,7 @@
                         "typeString": "function (struct EnumerableSet.AddressSet storage pointer,address) returns (bool)"
                       }
                     },
-                    "id": 6360,
+                    "id": 6428,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -7356,7 +7356,7 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 6361,
+                  "id": 6429,
                   "nodeType": "ExpressionStatement",
                   "src": "1196:25:26"
                 },
@@ -7364,11 +7364,11 @@
                   "eventCall": {
                     "arguments": [
                       {
-                        "id": 6363,
+                        "id": 6431,
                         "name": "_tokenAddress",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6350,
+                        "referencedDeclaration": 6418,
                         "src": "1246:13:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -7383,18 +7383,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 6362,
+                      "id": 6430,
                       "name": "TokenCreated",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6293,
+                      "referencedDeclaration": 6361,
                       "src": "1233:12:26",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 6364,
+                    "id": 6432,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -7410,46 +7410,46 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 6365,
+                  "id": 6433,
                   "nodeType": "EmitStatement",
                   "src": "1228:32:26"
                 },
                 {
                   "expression": {
-                    "id": 6366,
+                    "id": 6434,
                     "name": "_tokenAddress",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6350,
+                    "referencedDeclaration": 6418,
                     "src": "1274:13:26",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "functionReturnParameters": 6323,
-                  "id": 6367,
+                  "functionReturnParameters": 6391,
+                  "id": 6435,
                   "nodeType": "Return",
                   "src": "1267:20:26"
                 }
               ]
             },
             "functionSelector": "b64acddd",
-            "id": 6369,
+            "id": 6437,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
-                "id": 6320,
+                "id": 6388,
                 "kind": "modifierInvocation",
                 "modifierName": {
-                  "id": 6319,
+                  "id": 6387,
                   "name": "OnlyOwner",
                   "nameLocations": [
                     "992:9:26"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 7266,
+                  "referencedDeclaration": 7334,
                   "src": "992:9:26"
                 },
                 "nodeType": "ModifierInvocation",
@@ -7460,17 +7460,17 @@
             "nameLocation": "896:11:26",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6318,
+              "id": 6386,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6311,
+                  "id": 6379,
                   "mutability": "mutable",
                   "name": "_name",
                   "nameLocation": "922:5:26",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6369,
+                  "scope": 6437,
                   "src": "908:19:26",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -7479,7 +7479,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 6310,
+                    "id": 6378,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "908:6:26",
@@ -7492,12 +7492,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 6313,
+                  "id": 6381,
                   "mutability": "mutable",
                   "name": "_symbol",
                   "nameLocation": "943:7:26",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6369,
+                  "scope": 6437,
                   "src": "929:21:26",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -7506,7 +7506,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 6312,
+                    "id": 6380,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "929:6:26",
@@ -7519,12 +7519,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 6315,
+                  "id": 6383,
                   "mutability": "mutable",
                   "name": "_supply",
                   "nameLocation": "960:7:26",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6369,
+                  "scope": 6437,
                   "src": "952:15:26",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -7533,7 +7533,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 6314,
+                    "id": 6382,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "952:7:26",
@@ -7546,12 +7546,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 6317,
+                  "id": 6385,
                   "mutability": "mutable",
                   "name": "decimals",
                   "nameLocation": "975:8:26",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6369,
+                  "scope": 6437,
                   "src": "969:14:26",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -7560,7 +7560,7 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 6316,
+                    "id": 6384,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "969:5:26",
@@ -7575,17 +7575,17 @@
               "src": "907:77:26"
             },
             "returnParameters": {
-              "id": 6323,
+              "id": 6391,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6322,
+                  "id": 6390,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6369,
+                  "scope": 6437,
                   "src": "1010:7:26",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -7594,7 +7594,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6321,
+                    "id": 6389,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1010:7:26",
@@ -7609,7 +7609,7 @@
               ],
               "src": "1009:9:26"
             },
-            "scope": 6419,
+            "scope": 6487,
             "src": "887:406:26",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -7617,7 +7617,7 @@
           },
           {
             "body": {
-              "id": 6389,
+              "id": 6457,
               "nodeType": "Block",
               "src": "1368:60:26",
               "statements": [
@@ -7627,14 +7627,14 @@
                       {
                         "arguments": [
                           {
-                            "id": 6384,
+                            "id": 6452,
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 4294967268,
                             "src": "1407:4:26",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_RahatDonor_$6419",
+                              "typeIdentifier": "t_contract$_RahatDonor_$6487",
                               "typeString": "contract RahatDonor"
                             }
                           }
@@ -7642,11 +7642,11 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_RahatDonor_$6419",
+                              "typeIdentifier": "t_contract$_RahatDonor_$6487",
                               "typeString": "contract RahatDonor"
                             }
                           ],
-                          "id": 6383,
+                          "id": 6451,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -7658,14 +7658,14 @@
                             "typeString": "type(address)"
                           },
                           "typeName": {
-                            "id": 6382,
+                            "id": 6450,
                             "name": "address",
                             "nodeType": "ElementaryTypeName",
                             "src": "1399:7:26",
                             "typeDescriptions": {}
                           }
                         },
-                        "id": 6385,
+                        "id": 6453,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -7682,11 +7682,11 @@
                         }
                       },
                       {
-                        "id": 6386,
+                        "id": 6454,
                         "name": "_amount",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6373,
+                        "referencedDeclaration": 6441,
                         "src": "1414:7:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -7708,11 +7708,11 @@
                       "expression": {
                         "arguments": [
                           {
-                            "id": 6379,
+                            "id": 6447,
                             "name": "_token",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 6371,
+                            "referencedDeclaration": 6439,
                             "src": "1386:6:26",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -7727,18 +7727,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 6378,
+                          "id": 6446,
                           "name": "RahatERC20",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 6764,
+                          "referencedDeclaration": 6832,
                           "src": "1375:10:26",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_RahatERC20_$6764_$",
+                            "typeIdentifier": "t_type$_t_contract$_RahatERC20_$6832_$",
                             "typeString": "type(contract RahatERC20)"
                           }
                         },
-                        "id": 6380,
+                        "id": 6448,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -7750,11 +7750,11 @@
                         "src": "1375:18:26",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_RahatERC20_$6764",
+                          "typeIdentifier": "t_contract$_RahatERC20_$6832",
                           "typeString": "contract RahatERC20"
                         }
                       },
-                      "id": 6381,
+                      "id": 6449,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -7762,14 +7762,14 @@
                       "memberLocation": "1394:4:26",
                       "memberName": "mint",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 6742,
+                      "referencedDeclaration": 6810,
                       "src": "1375:23:26",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_uint256_$",
                         "typeString": "function (address,uint256) external returns (uint256)"
                       }
                     },
-                    "id": 6387,
+                    "id": 6455,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -7785,28 +7785,28 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 6388,
+                  "id": 6456,
                   "nodeType": "ExpressionStatement",
                   "src": "1375:47:26"
                 }
               ]
             },
             "functionSelector": "79c65068",
-            "id": 6390,
+            "id": 6458,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
-                "id": 6376,
+                "id": 6444,
                 "kind": "modifierInvocation",
                 "modifierName": {
-                  "id": 6375,
+                  "id": 6443,
                   "name": "OnlyOwner",
                   "nameLocations": [
                     "1358:9:26"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 7266,
+                  "referencedDeclaration": 7334,
                   "src": "1358:9:26"
                 },
                 "nodeType": "ModifierInvocation",
@@ -7817,17 +7817,17 @@
             "nameLocation": "1308:9:26",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6374,
+              "id": 6442,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6371,
+                  "id": 6439,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "1326:6:26",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6390,
+                  "scope": 6458,
                   "src": "1318:14:26",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -7836,7 +7836,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6370,
+                    "id": 6438,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1318:7:26",
@@ -7850,12 +7850,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 6373,
+                  "id": 6441,
                   "mutability": "mutable",
                   "name": "_amount",
                   "nameLocation": "1342:7:26",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6390,
+                  "scope": 6458,
                   "src": "1334:15:26",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -7864,7 +7864,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 6372,
+                    "id": 6440,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1334:7:26",
@@ -7879,12 +7879,12 @@
               "src": "1317:33:26"
             },
             "returnParameters": {
-              "id": 6377,
+              "id": 6445,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1368:0:26"
             },
-            "scope": 6419,
+            "scope": 6487,
             "src": "1299:129:26",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -7892,7 +7892,7 @@
           },
           {
             "body": {
-              "id": 6406,
+              "id": 6474,
               "nodeType": "Block",
               "src": "1513:55:26",
               "statements": [
@@ -7900,11 +7900,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 6403,
+                        "id": 6471,
                         "name": "_ownerAddress",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6394,
+                        "referencedDeclaration": 6462,
                         "src": "1548:13:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -7922,11 +7922,11 @@
                       "expression": {
                         "arguments": [
                           {
-                            "id": 6400,
+                            "id": 6468,
                             "name": "_token",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 6392,
+                            "referencedDeclaration": 6460,
                             "src": "1531:6:26",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -7941,18 +7941,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 6399,
+                          "id": 6467,
                           "name": "RahatERC20",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 6764,
+                          "referencedDeclaration": 6832,
                           "src": "1520:10:26",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_RahatERC20_$6764_$",
+                            "typeIdentifier": "t_type$_t_contract$_RahatERC20_$6832_$",
                             "typeString": "type(contract RahatERC20)"
                           }
                         },
-                        "id": 6401,
+                        "id": 6469,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -7964,11 +7964,11 @@
                         "src": "1520:18:26",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_RahatERC20_$6764",
+                          "typeIdentifier": "t_contract$_RahatERC20_$6832",
                           "typeString": "contract RahatERC20"
                         }
                       },
-                      "id": 6402,
+                      "id": 6470,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -7976,14 +7976,14 @@
                       "memberLocation": "1539:8:26",
                       "memberName": "addOwner",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 7291,
+                      "referencedDeclaration": 7359,
                       "src": "1520:27:26",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$returns$_t_bool_$",
                         "typeString": "function (address) external returns (bool)"
                       }
                     },
-                    "id": 6404,
+                    "id": 6472,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -7999,28 +7999,28 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 6405,
+                  "id": 6473,
                   "nodeType": "ExpressionStatement",
                   "src": "1520:42:26"
                 }
               ]
             },
             "functionSelector": "2cb5568e",
-            "id": 6407,
+            "id": 6475,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
-                "id": 6397,
+                "id": 6465,
                 "kind": "modifierInvocation",
                 "modifierName": {
-                  "id": 6396,
+                  "id": 6464,
                   "name": "OnlyOwner",
                   "nameLocations": [
                     "1503:9:26"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 7266,
+                  "referencedDeclaration": 7334,
                   "src": "1503:9:26"
                 },
                 "nodeType": "ModifierInvocation",
@@ -8031,17 +8031,17 @@
             "nameLocation": "1443:13:26",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6395,
+              "id": 6463,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6392,
+                  "id": 6460,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "1465:6:26",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6407,
+                  "scope": 6475,
                   "src": "1457:14:26",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -8050,7 +8050,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6391,
+                    "id": 6459,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1457:7:26",
@@ -8064,12 +8064,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 6394,
+                  "id": 6462,
                   "mutability": "mutable",
                   "name": "_ownerAddress",
                   "nameLocation": "1481:13:26",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6407,
+                  "scope": 6475,
                   "src": "1473:21:26",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -8078,7 +8078,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6393,
+                    "id": 6461,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1473:7:26",
@@ -8094,12 +8094,12 @@
               "src": "1456:39:26"
             },
             "returnParameters": {
-              "id": 6398,
+              "id": 6466,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1513:0:26"
             },
-            "scope": 6419,
+            "scope": 6487,
             "src": "1434:134:26",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -8107,7 +8107,7 @@
           },
           {
             "body": {
-              "id": 6417,
+              "id": 6485,
               "nodeType": "Block",
               "src": "1651:35:26",
               "statements": [
@@ -8117,18 +8117,18 @@
                     "expression": {
                       "argumentTypes": [],
                       "expression": {
-                        "id": 6413,
+                        "id": 6481,
                         "name": "tokens",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6296,
+                        "referencedDeclaration": 6364,
                         "src": "1665:6:26",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_AddressSet_$4458_storage",
                           "typeString": "struct EnumerableSet.AddressSet storage ref"
                         }
                       },
-                      "id": 6414,
+                      "id": 6482,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -8143,7 +8143,7 @@
                         "typeString": "function (struct EnumerableSet.AddressSet storage pointer) view returns (address[] memory)"
                       }
                     },
-                    "id": 6415,
+                    "id": 6483,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -8159,15 +8159,15 @@
                       "typeString": "address[] memory"
                     }
                   },
-                  "functionReturnParameters": 6412,
-                  "id": 6416,
+                  "functionReturnParameters": 6480,
+                  "id": 6484,
                   "nodeType": "Return",
                   "src": "1658:22:26"
                 }
               ]
             },
             "functionSelector": "7488ff76",
-            "id": 6418,
+            "id": 6486,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -8175,23 +8175,23 @@
             "nameLocation": "1601:10:26",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6408,
+              "id": 6476,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1611:2:26"
             },
             "returnParameters": {
-              "id": 6412,
+              "id": 6480,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6411,
+                  "id": 6479,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6418,
+                  "scope": 6486,
                   "src": "1634:16:26",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -8201,7 +8201,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 6409,
+                      "id": 6477,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "1634:7:26",
@@ -8211,7 +8211,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 6410,
+                    "id": 6478,
                     "nodeType": "ArrayTypeName",
                     "src": "1634:9:26",
                     "typeDescriptions": {
@@ -8224,14 +8224,14 @@
               ],
               "src": "1633:18:26"
             },
-            "scope": 6419,
+            "scope": 6487,
             "src": "1592:94:26",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 6420,
+        "scope": 6488,
         "src": "427:1262:26",
         "usedErrors": []
       }
@@ -8244,7 +8244,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-11-29T09:54:09.723Z",
+  "updatedAt": "2022-11-29T18:51:57.969Z",
   "devdoc": {
     "author": "Rumsan Associates",
     "details": "All function calls are only executed by contract owner",

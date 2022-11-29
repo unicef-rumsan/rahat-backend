@@ -29,6 +29,7 @@ module.exports = {
         .example('6108e3a19a8e17b54e464dd1,6208e3a19a8e17b54e464dd2'),
       govt_id_image: Vendor.govt_id_image,
       education: Vendor.education,
+      ward: Joi.string().optional().description('Vendor Ward no.').example('1'),
       extra_files: Joi.object().keys({
         identity_photo: Joi.string().allow('').allow(null).optional(),
         signature_photo: Joi.string().allow('').allow(null).optional(),
@@ -117,7 +118,7 @@ module.exports = {
       govt_id: Vendor.govt_id.example('99988777nepal'),
       govt_id_image: Joi.string().description('ID Image').optional(),
       photo: Joi.string().description('Photo').optional(),
-      ward: Joi.string().optional().description('Vendor Ward no.').example('0')
+      ward: Joi.string().optional().description('Vendor Ward no.').example('1')
     })
   },
   getTransactions: {

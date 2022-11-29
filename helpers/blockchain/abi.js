@@ -24,6 +24,7 @@ const getContractJson = contract => {
   if (contract === 'rahat_erc1155') contract = 'RahatERC1155';
   if (contract === 'rahat_admin') contract = 'RahatAdmin';
   if (contract === 'rahat_trigger') contract = 'RahatTriggerResponse';
+  if (contract === 'rahat_wallet') contract = 'RahatWallet';
   return require(`../../contracts/${contract}.json`);
 };
 
