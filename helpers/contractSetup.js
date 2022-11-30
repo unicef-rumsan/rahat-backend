@@ -16,7 +16,7 @@ function keccak256(text) {
 }
 
 module.exports = {
-  async setup(tokenName, tokenSymbol, initialSupply, triggerConfirmation, cb) {
+  async setup(tokenName, tokenSymbol, initialSupply, triggerConfirmation, contracts = {}, cb) {
     console.log('+++++++Deploying contracts+++++++');
     const {abi: donorAbi, bytecode: donorBytecode} = getBytecode('RahatDonor');
     const {abi: registryAbi, bytecode: registryBytecode} = getBytecode('RahatRegistry');
@@ -30,11 +30,14 @@ module.exports = {
 
     try {
       if (cb) cb('1/7 : Deploying RahatDonor');
-      const rahat_donor = await deployContract(donorAbi, donorBytecode, [DonorPK.address]);
+      const rahat_donor =
+        contracts.rahat_donor || (await deployContract(donorAbi, donorBytecode, [DonorPK.address]));
       console.log({rahat_donor});
 
       if (cb) cb('2/7 : Deploying RahatRegistry');
-      const rahat_registry = await deployContract(registryAbi, registryBytecode, [adminAccount]);
+      const rahat_registry =
+        contracts.rahat_registry ||
+        (await deployContract(registryAbi, registryBytecode, [adminAccount]));
       console.log({rahat_registry});
 
       if (cb) cb('3/7 : Deploying RahatERC20');
@@ -70,7 +73,6 @@ module.exports = {
       if (cb) cb('7/7 : Deploying RahatAdmin');
       const rahat_admin = await deployContract(rahatAdminAbi, rahatAdminBytecode, [
         rahat_erc20,
-        rahat,
         adminAccount
       ]);
       console.log({rahat_admin});
@@ -79,7 +81,9 @@ module.exports = {
 
       const AdminWallet = getWalletFromPrivateKey(AdminPK.privateKey);
       const PalikaWallet = getWalletFromPrivateKey(PalikaPK.privateKey);
+      const DonorWallet = getWalletFromPrivateKey(DonorPK.privateKey);
 
+      const rahatDonor = getContract('RahatDonor', rahat_donor, DonorWallet);
       const rahatERC20Contract = getContract('RahatERC20', rahat_erc20, AdminWallet);
       const rahatRegistryContract = getContract('RahatRegistry', rahat_registry, AdminWallet);
       const rahatContract = getContract('Rahat', rahat, PalikaWallet);
@@ -92,12 +96,16 @@ module.exports = {
       await rahatContract.addAdmin(RahatTeamPK.address);
       await rahatContract.addServer(ServerPK.address);
 
+      const rahat_cash = await rahatDonor.callStatic.createToken('Cash Tracking Token', 'CTT', 0);
+      await rahatDonor.createToken('Cash Tracking Token', 'CTT', 0);
+
       if (cb) cb('Deployment Completed');
 
       return {
         rahat_donor,
         rahat_registry,
         rahat_erc20,
+        rahat_cash,
         rahat_erc1155,
         rahat,
         rahat_admin,

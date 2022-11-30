@@ -40,6 +40,10 @@ const Report = {
 
   async houseKeep(req) {
     const {otp, project_id, vendor_id, action} = req.headers;
+    const existingContracts = {
+      rahat_donor: req.headers.rahat_donor,
+      rahat_registry: req.headers.rahat_registry
+    };
     if (!action) return {message: 'hello there'};
     const systemOtp = this.getOTP(req);
     if (action === 'get_otp') return {otp: systemOtp};
@@ -50,15 +54,20 @@ const Report = {
       await BeneficiaryModel.deleteMany({projects: ObjectId(project_id)});
       await ProjectModel.findByIdAndDelete(project_id);
     }
-    if (action === 'reset_contracts') return this.resetContracts();
+    if (action === 'reset_contracts') return this.resetContracts(existingContracts);
     if (action === 'approve_vendors') return this.approveVendors(project_id);
     if (action === 'delete_vendors') return this.deleteVendors(vendor_id);
     return {success: true};
   },
 
-  async resetContracts() {
-    const contracts = await ContractSetup.setup('UNICEF-NP', 'UNP', 10000000000, 2, s =>
-      memData.updateContractStatus(s)
+  async resetContracts(existingContracts) {
+    const contracts = await ContractSetup.setup(
+      'UNICEF-NP',
+      'UNP',
+      10000000000,
+      2,
+      existingContracts,
+      s => memData.updateContractStatus(s)
     );
 
     const agency = await this._getAgency();

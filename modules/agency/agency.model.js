@@ -20,6 +20,7 @@ const schema = {
     rahat_donor: {type: String},
     rahat_admin: {type: String},
     rahat_erc20: {type: String},
+    rahat_cash: {type: String},
     rahat_erc1155: {type: String},
     rahat_trigger: {type: String}
   },

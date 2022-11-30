@@ -21,6 +21,7 @@ const getContractJson = contract => {
   if (contract === 'rahat_donor') contract = 'RahatDonor';
   if (contract === 'rahat_registry') contract = 'RahatRegistry';
   if (contract === 'rahat_erc20') contract = 'RahatERC20';
+  if (contract === 'rahat_cash') contract = 'RahatERC20';
   if (contract === 'rahat_erc1155') contract = 'RahatERC1155';
   if (contract === 'rahat_admin') contract = 'RahatAdmin';
   if (contract === 'rahat_trigger') contract = 'RahatTriggerResponse';
