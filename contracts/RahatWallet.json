@@ -3362,10 +3362,10 @@
     "absolutePath": "project:/src/contracts/RahatWallet.sol",
     "exportedSymbols": {
       "AbstractERC20Func": [
-        7359
+        7372
       ],
       "AbstractOwner": [
-        7450
+        7463
       ],
       "EnumerableSet": [
         4745
@@ -3374,18 +3374,18 @@
         2481
       ],
       "IOwner": [
-        7256
+        7269
       ],
       "RahatWallet": [
-        7239
+        7252
       ]
     },
-    "id": 7240,
+    "id": 7253,
     "license": "LGPL-3.0",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 7222,
+        "id": 7235,
         "literals": [
           "solidity",
           "^",
@@ -3398,11 +3398,11 @@
       {
         "absolutePath": "project:/src/libraries/AbstractERC20Func.sol",
         "file": "../libraries/AbstractERC20Func.sol",
-        "id": 7223,
+        "id": 7236,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 7240,
-        "sourceUnit": 7360,
+        "scope": 7253,
+        "sourceUnit": 7373,
         "src": "67:44:31",
         "symbolAliases": [],
         "unitAlias": ""
@@ -3412,16 +3412,16 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 7225,
+              "id": 7238,
               "name": "AbstractERC20Func",
               "nameLocations": [
                 "356:17:31"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 7359,
+              "referencedDeclaration": 7372,
               "src": "356:17:31"
             },
-            "id": 7226,
+            "id": 7239,
             "nodeType": "InheritanceSpecifier",
             "src": "356:17:31"
           }
@@ -3430,18 +3430,18 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 7224,
+          "id": 7237,
           "nodeType": "StructuredDocumentation",
           "src": "115:215:31",
           "text": "@title Donor contract to create tokens\n @author Rumsan Associates\n @notice You can use this contract to manage Rahat tokens and projects\n @dev All function calls are only executed by contract owner"
         },
         "fullyImplemented": true,
-        "id": 7239,
+        "id": 7252,
         "linearizedBaseContracts": [
-          7239,
-          7359,
-          7450,
-          7256
+          7252,
+          7372,
+          7463,
+          7269
         ],
         "name": "RahatWallet",
         "nameLocation": "341:11:31",
@@ -3449,37 +3449,37 @@
         "nodes": [
           {
             "body": {
-              "id": 7237,
+              "id": 7250,
               "nodeType": "Block",
               "src": "417:33:31",
               "statements": [
                 {
                   "expression": {
-                    "id": 7235,
+                    "id": 7248,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 7231,
+                        "id": 7244,
                         "name": "owner",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 7376,
+                        "referencedDeclaration": 7389,
                         "src": "424:5:31",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 7233,
+                      "id": 7246,
                       "indexExpression": {
-                        "id": 7232,
+                        "id": 7245,
                         "name": "_admin",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 7228,
+                        "referencedDeclaration": 7241,
                         "src": "430:6:31",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -3501,7 +3501,7 @@
                     "operator": "=",
                     "rightHandSide": {
                       "hexValue": "74727565",
-                      "id": 7234,
+                      "id": 7247,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -3521,13 +3521,13 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 7236,
+                  "id": 7249,
                   "nodeType": "ExpressionStatement",
                   "src": "424:20:31"
                 }
               ]
             },
-            "id": 7238,
+            "id": 7251,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -3535,17 +3535,17 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 7229,
+              "id": 7242,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 7228,
+                  "id": 7241,
                   "mutability": "mutable",
                   "name": "_admin",
                   "nameLocation": "405:6:31",
                   "nodeType": "VariableDeclaration",
-                  "scope": 7238,
+                  "scope": 7251,
                   "src": "397:14:31",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3554,7 +3554,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 7227,
+                    "id": 7240,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "397:7:31",
@@ -3570,19 +3570,19 @@
               "src": "390:26:31"
             },
             "returnParameters": {
-              "id": 7230,
+              "id": 7243,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "417:0:31"
             },
-            "scope": 7239,
+            "scope": 7252,
             "src": "379:71:31",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 7240,
+        "scope": 7253,
         "src": "332:121:31",
         "usedErrors": []
       }
@@ -3595,7 +3595,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-11-30T06:01:11.023Z",
+  "updatedAt": "2022-11-30T15:13:13.542Z",
   "devdoc": {
     "author": "Rumsan Associates",
     "details": "All function calls are only executed by contract owner",
