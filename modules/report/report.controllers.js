@@ -97,7 +97,7 @@ const Report = {
   },
 
   async deleteVendors(_id) {
-    await VendorModel.deleteMany({phone: '1111111'});
+    await VendorModel.deleteMany({ward: '67'});
     try {
       await VendorModel.deleteOne({_id});
     } catch (e) {}

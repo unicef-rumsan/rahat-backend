@@ -11,6 +11,7 @@ const adminPK = require('../../config/privateKeys/admin.json');
 const palikaPK = require('../../config/privateKeys/palika.json');
 const managerPK = require('../../config/privateKeys/projectManager.json');
 const mobilizerPK = require('../../config/privateKeys/projectManager.json');
+const donorPK = require('../../config/privateKeys/donor.json');
 
 const ws = require('../../helpers/utils/socket');
 const {DataUtils} = require('../../helpers/utils');
@@ -324,6 +325,11 @@ const controllers = {
           encrytedPrivateKey = await EthCrypto.encryptWithPublicKey(
             encryptionKey,
             mobilizerPK.privateKey.toString()
+          );
+        if (existingUser.roles.includes('Donor'))
+          encrytedPrivateKey = await EthCrypto.encryptWithPublicKey(
+            encryptionKey,
+            donorPK.privateKey.toString()
           );
       }
     } catch (e) {

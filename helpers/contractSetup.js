@@ -91,6 +91,7 @@ module.exports = {
 
       await rahatERC20Contract.addOwner(rahat_admin);
       await rahatRegistryContract.addOwner(rahat);
+      await rahatRegistryContract.addOwner(PalikaPK.address);
       await rahatTriggerContract.addAdmin(PalikaPK.address);
       await rahatTriggerContract.addAdmin(RahatTeamPK.address);
       await rahatContract.addAdmin(RahatTeamPK.address);
