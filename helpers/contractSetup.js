@@ -1,6 +1,11 @@
 const ethers = require('ethers');
 const {getBytecode} = require('./blockchain/abi');
-const {deployContract, getContract, getWalletFromPrivateKey} = require('./blockchain/contract');
+const {
+  deployContract,
+  getContract,
+  getWalletFromPrivateKey,
+  provider
+} = require('./blockchain/contract');
 
 const DeployerPK = require('../config/privateKeys/deployer.json');
 const DonorPK = require('../config/privateKeys/donor.json');
@@ -17,6 +22,11 @@ function keccak256(text) {
 
 module.exports = {
   async setup(tokenName, tokenSymbol, initialSupply, triggerConfirmation, contracts = {}, cb) {
+    const adminBalance = ethers.utils.formatEther(await provider.getBalance(AdminPK.address));
+    if (adminBalance < 2)
+      throw new Error(
+        `Admin ETH balance must be greater than 3. Please send at least 2 ETH to ${AdminPK.address}`
+      );
     console.log('+++++++Deploying contracts+++++++');
     const {abi: donorAbi, bytecode: donorBytecode} = getBytecode('RahatDonor');
     const {abi: registryAbi, bytecode: registryBytecode} = getBytecode('RahatRegistry');
@@ -82,6 +92,15 @@ module.exports = {
       const AdminWallet = getWalletFromPrivateKey(AdminPK.privateKey);
       const PalikaWallet = getWalletFromPrivateKey(PalikaPK.privateKey);
       const DonorWallet = getWalletFromPrivateKey(DonorPK.privateKey);
+
+      await AdminWallet.sendTransaction({
+        from: AdminPK.address,
+        to: rahat,
+        value: ethers.utils.parseEther('3.1'),
+        nonce: provider.getTransactionCount(AdminPK.address, 'latest'),
+        gasLimit: ethers.utils.hexlify(100000), // 100000
+        gasPrice: provider.getGasPrice()
+      });
 
       const rahatDonor = getContract('RahatDonor', rahat_donor, DonorWallet);
       const rahatERC20Contract = getContract('RahatERC20', rahat_erc20, AdminWallet);

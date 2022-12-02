@@ -61,21 +61,25 @@ const Report = {
   },
 
   async resetContracts(existingContracts) {
-    const contracts = await ContractSetup.setup(
-      'UNICEF-NP',
-      'UNP',
-      10000000000,
-      2,
-      existingContracts,
-      s => memData.updateContractStatus(s)
-    );
+    try {
+      const contracts = await ContractSetup.setup(
+        'UNICEF-NP',
+        'UNP',
+        10000000000,
+        2,
+        existingContracts,
+        s => memData.updateContractStatus(s)
+      );
 
-    const agency = await this._getAgency();
+      const agency = await this._getAgency();
 
-    await AgencyModel.findByIdAndUpdate(agency.id, {contracts});
+      await AgencyModel.findByIdAndUpdate(agency.id, {contracts});
 
-    memData.updateContractStatus('done');
-    return contracts;
+      memData.updateContractStatus('done');
+      return contracts;
+    } catch (e) {
+      return {message: e.message};
+    }
   },
 
   async approveVendors(project_id) {

@@ -52,6 +52,7 @@ async function deployContract(abi, bytecode, args) {
 }
 
 module.exports = {
+  provider,
   getWalletFromPrivateKey,
   getContract,
   ethersContract,
