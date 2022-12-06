@@ -18,6 +18,12 @@ const routes = {
     'check an beneficiary by Phone , Wallet Adress or id.'
   ],
   update: ['PUT', '/{id}', 'Update beneficiary details.', [BENEFICIARY.WRITE, BENEFICIARY.ADMIN]],
+  updateChainData: [
+    'PUT',
+    '/chain-data',
+    'Update beneficiary chain data.',
+    [BENEFICIARY.WRITE, BENEFICIARY.ADMIN]
+  ],
   updateIssuedPackages: [
     'PATCH',
     '/{id}/update-packages',

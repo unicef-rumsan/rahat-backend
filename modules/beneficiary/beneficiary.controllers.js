@@ -196,6 +196,21 @@ const Beneficiary = {
     return BeneficiaryModel.findByIdAndUpdate(benfId, {$addToSet: {issued_packages}}, {new: true});
   },
 
+  async updateChainData(payload) {
+    const {phone, chain_data} = payload;
+    if (!phone) throw new Error('Must send phone nuymber');
+    const data = await BeneficiaryModel.findOneAndUpdate(
+      {phone: phone.toString()},
+      {wallet_address: chain_data.walletAddress, chain_data},
+      {
+        new: true,
+        runValidators: true
+      }
+    );
+    console.log(data);
+    return data;
+  },
+
   async update(id, payload) {
     delete payload.status;
     delete payload.balance;
@@ -500,6 +515,7 @@ module.exports = {
   list: req => Beneficiary.list(req.query, req.currentUser),
   remove: req => Beneficiary.remove(req.params.id, req.currentUserId),
   update: req => Beneficiary.update(req.params.id, req.payload),
+  updateChainData: req => Beneficiary.updateChainData(req.payload),
   distributeToken: req => Beneficiary.distributeToken(req.params.id, req.payload),
   listTokenDistributions: req => Beneficiary.listTokenDistributions(req.params.id),
   updateIssuedPackages: req => Beneficiary.updateIssuedPackages(req.params.id, req.payload),

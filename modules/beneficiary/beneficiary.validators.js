@@ -112,6 +112,12 @@ module.exports = {
       extras: Joi.object().optional()
     }).label('Beneficiary')
   },
+  updateChainData: {
+    payload: Joi.object({
+      phone: Joi.any().required().example('787878'),
+      chain_data: Joi.object().required()
+    })
+  },
   listTokenDistributions: {
     params: GooseJoi.id()
   },

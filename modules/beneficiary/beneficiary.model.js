@@ -57,6 +57,7 @@ const schema = {
     }
   },
   extras: {type: Object},
+  chain_data: {type: Object},
   ...commonSchema
 };
 
