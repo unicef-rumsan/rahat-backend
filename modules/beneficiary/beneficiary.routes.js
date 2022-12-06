@@ -24,6 +24,12 @@ const routes = {
     'Update beneficiary chain data.',
     [BENEFICIARY.WRITE, BENEFICIARY.ADMIN]
   ],
+  updateChainDataInBulk: [
+    'PUT',
+    '/chain-data/bulk',
+    'Update beneficiary chain data.',
+    [BENEFICIARY.WRITE, BENEFICIARY.ADMIN]
+  ],
   updateIssuedPackages: [
     'PATCH',
     '/{id}/update-packages',

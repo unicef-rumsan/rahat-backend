@@ -211,6 +211,20 @@ const Beneficiary = {
     return data;
   },
 
+  async updateChainDataInBulk(payload) {
+    const updateOperations = payload.map(ben => {
+      return {
+        updateOne: {
+          filter: {phone: ben.phone},
+          update: {$set: {chain_data: ben}}
+        }
+      };
+    });
+
+    const updatedData = await BeneficiaryModel.bulkWrite(updateOperations);
+    return updatedData;
+  },
+
   async update(id, payload) {
     delete payload.status;
     delete payload.balance;
@@ -516,6 +530,7 @@ module.exports = {
   remove: req => Beneficiary.remove(req.params.id, req.currentUserId),
   update: req => Beneficiary.update(req.params.id, req.payload),
   updateChainData: req => Beneficiary.updateChainData(req.payload),
+  updateChainDataInBulk: req => Beneficiary.updateChainDataInBulk(req.payload),
   distributeToken: req => Beneficiary.distributeToken(req.params.id, req.payload),
   listTokenDistributions: req => Beneficiary.listTokenDistributions(req.params.id),
   updateIssuedPackages: req => Beneficiary.updateIssuedPackages(req.params.id, req.payload),
