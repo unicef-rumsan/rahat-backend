@@ -101,8 +101,7 @@ module.exports = {
         gasLimit: ethers.utils.hexlify(100000), // 100000
         gasPrice: provider.getGasPrice()
       });
-
-      const {blockNumber} = await provider.getTransaction(sendRes.hash);
+      const {blockNumber} = await sendRes.wait();
 
       const rahatDonor = getContract('RahatDonor', rahat_donor, DonorWallet);
       const rahatERC20Contract = getContract('RahatERC20', rahat_erc20, AdminWallet);
