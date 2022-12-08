@@ -36,6 +36,7 @@ const schema = {
       maps: {type: Object}
     }
   ],
+  startBlockNumber: {type: Number},
   ...commonSchema
 };
 

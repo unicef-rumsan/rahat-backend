@@ -73,7 +73,10 @@ const Report = {
 
       const agency = await this._getAgency();
 
-      await AgencyModel.findByIdAndUpdate(agency.id, {contracts});
+      await AgencyModel.findByIdAndUpdate(agency.id, {
+        contracts,
+        startBlockNumber: contracts.blockNumber
+      });
 
       memData.updateContractStatus('done');
       return contracts;

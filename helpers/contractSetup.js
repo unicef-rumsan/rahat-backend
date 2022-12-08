@@ -93,7 +93,7 @@ module.exports = {
       const PalikaWallet = getWalletFromPrivateKey(PalikaPK.privateKey);
       const DonorWallet = getWalletFromPrivateKey(DonorPK.privateKey);
 
-      await AdminWallet.sendTransaction({
+      const sendRes = await AdminWallet.sendTransaction({
         from: AdminPK.address,
         to: rahat,
         value: ethers.utils.parseEther('3.1'),
@@ -101,6 +101,8 @@ module.exports = {
         gasLimit: ethers.utils.hexlify(100000), // 100000
         gasPrice: provider.getGasPrice()
       });
+
+      const {blockNumber} = await provider.getTransaction(sendRes.hash);
 
       const rahatDonor = getContract('RahatDonor', rahat_donor, DonorWallet);
       const rahatERC20Contract = getContract('RahatERC20', rahat_erc20, AdminWallet);
@@ -122,6 +124,7 @@ module.exports = {
       if (cb) cb('Deployment Completed');
 
       return {
+        blockNumber,
         rahat_donor,
         rahat_registry,
         rahat_erc20,
