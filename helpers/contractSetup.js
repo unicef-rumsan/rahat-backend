@@ -96,7 +96,7 @@ module.exports = {
       const sendRes = await AdminWallet.sendTransaction({
         from: AdminPK.address,
         to: rahat,
-        value: ethers.utils.parseEther('3.1'),
+        value: ethers.utils.parseEther('5'),
         nonce: provider.getTransactionCount(AdminPK.address, 'latest'),
         gasLimit: ethers.utils.hexlify(100000), // 100000
         gasPrice: provider.getGasPrice()
