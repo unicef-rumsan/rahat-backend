@@ -107,7 +107,10 @@ const Report = {
   },
 
   async deleteVendors(_id) {
-    await VendorModel.deleteMany({ward: '67'});
+    if (_id === 'all') {
+      await VendorModel.deleteMany({});
+      return {message: 'All Vendors deleted'};
+    }
     try {
       await VendorModel.deleteOne({_id});
     } catch (e) {}
