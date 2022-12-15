@@ -54,6 +54,9 @@ const Report = {
       await BeneficiaryModel.deleteMany({projects: ObjectId(project_id)});
       await ProjectModel.findByIdAndDelete(project_id);
     }
+    if (action === 'remove_beneficiaries') {
+      await BeneficiaryModel.deleteMany({projects: ObjectId(project_id)});
+    }
     if (action === 'reset_contracts') return this.resetContracts(existingContracts);
     if (action === 'approve_vendors') return this.approveVendors(project_id);
     if (action === 'delete_vendors') return this.deleteVendors(vendor_id);
