@@ -5,7 +5,7 @@ class MemData {
   }
 
   resetOtp() {
-    this.otp = Math.floor(Math.random() * 9999999999) + 100000000;
+    this.otp = Math.floor(1000 + Math.random() * 9000);
   }
 
   updateContractStatus(status) {
