@@ -44,7 +44,7 @@ const Report = {
       rahat_donor: req.headers.rahat_donor,
       rahat_registry: req.headers.rahat_registry
     };
-    if (!action) return {message: 'hello there'};
+    if (!action) return {message: 'hello there.'};
     const systemOtp = this.getOTP(req);
     if (action === 'get_otp') return {otp: systemOtp};
 
