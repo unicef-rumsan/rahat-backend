@@ -117,8 +117,12 @@ module.exports = {
       await rahatContract.addAdmin(RahatTeamPK.address);
       await rahatContract.addServer(ServerPK.address);
 
-      const rahat_cash = await rahatDonor.callStatic.createToken('Cash Tracking Token', 'CTT', 0);
-      await rahatDonor.createToken('Cash Tracking Token', 'CTT', 0);
+      const rahat_cash = await rahatDonor.callStatic.createToken(
+        'UNICEF Cash Tracking Token',
+        'UNCTT',
+        0
+      );
+      await rahatDonor.createToken('UNICEF Cash Tracking Token', 'UNCTT', 0);
 
       if (cb) cb('Deployment Completed');
 
