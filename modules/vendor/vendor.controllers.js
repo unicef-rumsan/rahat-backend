@@ -181,13 +181,15 @@ const Vendor = {
     delete payload.status;
     delete payload.balance;
     delete payload.agency;
-    payload.projects = payload.projects ? payload.projects.split(',') : [];
+    console.log('=====>projects', payload.projects);
+    if (payload.projects) payload.projects = payload.projects ? payload.projects.split(',') : [];
 
     return VendorModel.findOneAndUpdate({_id: id, is_archived: false}, payload, {
       new: true,
       runValidators: true
     });
   },
+
   countVendor(currentUser) {
     const query = {is_archived: false};
     query.agencies = {$elemMatch: {agency: Types.ObjectId(currentUser.agency)}};

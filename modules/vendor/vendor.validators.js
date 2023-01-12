@@ -64,36 +64,6 @@ module.exports = {
   remove: {
     params: GooseJoi.id()
   },
-  update: {
-    params: GooseJoi.id(),
-    payload: Joi.object({
-      name: Vendor.name.example('Rastra'),
-      wallet_address: Vendor.wallet_address.example('0x00000'),
-      phone: Vendor.phone.example('12121212'),
-      email: Vendor.email.example('rastra@gmail.com'),
-      gender: Joi.string().example('M').optional(),
-      photo: Joi.string().optional(),
-      shop_name: Vendor.shop_name,
-      address: Vendor.address.example('Lalitpur'),
-      govt_id: Vendor.govt_id.example('99988777nepal'),
-      pan_number: Vendor.pan_number.example('1240000'),
-      bank_name: Vendor.bank_name,
-      bank_branch: Vendor.bank_branch,
-      bank_account: Vendor.bank_account.example('2354394935034395'),
-      projects: Joi.string()
-        .allow('')
-        .optional()
-        .example('6108e3a19a8e17b54e464dd1,6208e3a19a8e17b54e464dd2'),
-      govt_id_image: Vendor.govt_id_image,
-      education: Vendor.education,
-      extra_files: Joi.object().keys({
-        identity_photo: Joi.string().allow('').allow(null).optional(),
-        signature_photo: Joi.string().allow('').allow(null).optional(),
-        mou_file: Joi.string().allow('').allow(null).optional()
-      })
-    }).label('Vendor')
-  },
-
   approve: {
     payload: Joi.object({
       wallet_address: Joi.string().required().example('0x00')
