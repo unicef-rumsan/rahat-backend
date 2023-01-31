@@ -108,6 +108,7 @@ const App = {
       isSetup: agency != null,
       version: packageJson.version,
       networkUrl: config.get('blockchain.httpProvider'),
+      chainId: config.get('blockchain.chainId'),
       chainWebSocket: config.get('blockchain.webSocketProvider'),
       agency
     };
